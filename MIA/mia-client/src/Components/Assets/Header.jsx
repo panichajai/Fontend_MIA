@@ -18,21 +18,21 @@ const Header = () => {
         </div>
         {/* Dropdown Menu */}
         <Menu.Items className="absolute right-0 mt-2 w-48 origin-top-right bg-white divide-y divide-gray-100 rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
-          <div className="py-1">
-            <Menu.Item>
-              {({ active }) => (
-                <a
-                  href="#"
-                  className={`${
-                    active ? 'bg-gray-100 text-gray-900' : 'text-gray-700'
-                  } block px-4 py-2 text-sm`}
-                >
-                  Change password
-                </a>
-              )}
-            </Menu.Item>
-          </div>
-        </Menu.Items>
+  <div className="py-1">
+    <Menu.Item>
+      {({ active }) => (
+        <button
+          className={`${
+            active ? 'bg-gray-100 text-gray-900' : 'text-gray-700'
+          } block px-4 py-2 text-sm`}
+        >
+          Change password
+        </button>
+      )}
+    </Menu.Item>
+  </div>
+</Menu.Items>
+
       </Menu>
     </header>
   );
