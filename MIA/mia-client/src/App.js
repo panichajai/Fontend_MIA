@@ -16,29 +16,33 @@ import InstallmentSetting from './Components/SystemSetting/InstallmentSetting';
 import ProjectSetting from './Components/SystemSetting/ProjectSetting';
 import StatusInsuranceSetting from './Components/SystemSetting/StatusInsuranceSetting';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import PrivateRoute from './service/PrivateRoute';
+import { AuthProvider } from './service/AuthContext';
 
 function App() {
   return (
     <Router>
+      <AuthProvider>
         <Routes>
-          <Route path="/" element={<Login />} />  {/* เส้นทางหน้า Login */}
-          <Route path="signup" element={<Signup />} />  {/* เส้นทางหน้า Signup */}
-          <Route path="forgotpassword" element={<Forgotpassword/>} /> {/* เส้นทางหน้า Forgotpassword */}
-          <Route path="/dashbord" element={<Dashbord/>}/>
-          <Route path="/customer" element={<CustomerList/>} />  {/* เส้นทางหน้า CustomerList */}
-          <Route path="/customer/view/:id" element={<Customer mode="view"/>}/>
-          <Route path="/customer/create" element={<Customer mode="create"/>}/>
-          <Route path="/customer/update/:id" element={<Customer mode="update"/>}/>
-          <Route path="/insurance" element={<Insurance/>}/>
-          <Route path="/carbrandsetting" element={<CarBrandSetting/>}/>
-          <Route path="/adminuser" element={<AdminUser/>}/>
-          <Route path="/rolesetting" element={<RoleSetting/>}/>
-          <Route path="/pdpalog" element={<PDPALog/>}/>
-          <Route path="/pdpasetting" element={<PDPASetting/>}/>
-          <Route path="/installmentsetting" element={<InstallmentSetting/>}/>
-          <Route path="/projectsetting" element={<ProjectSetting/>}/>
-          <Route path="/statusinsurancesetting" element={<StatusInsuranceSetting/>}/>
+          <Route path="/login" element={<Login />} />  
+          <Route path="/signup" element={<PrivateRoute><Signup /></PrivateRoute>} />  
+          <Route path="/forgotpassword" element={<Forgotpassword />} /> 
+          <Route path="/" element={<PrivateRoute><Dashbord /></PrivateRoute>} />
+          <Route path="/customer" element={<PrivateRoute><CustomerList /></PrivateRoute>} />
+          <Route path="/customer/view/:id" element={<PrivateRoute><Customer mode="view" /></PrivateRoute>} />
+          <Route path="/customer/create" element={<PrivateRoute><Customer mode="create" /></PrivateRoute>} />
+          <Route path="/customer/update/:id" element={<PrivateRoute><Customer mode="update" /></PrivateRoute>} />
+          <Route path="/insurance" element={<PrivateRoute><Insurance /></PrivateRoute>} />
+          <Route path="/carbrandsetting" element={<PrivateRoute><CarBrandSetting /></PrivateRoute>} />
+          <Route path="/adminuser" element={<PrivateRoute><AdminUser /></PrivateRoute>} />
+          <Route path="/rolesetting" element={<PrivateRoute><RoleSetting /></PrivateRoute>} />
+          <Route path="/pdpalog" element={<PrivateRoute><PDPALog /></PrivateRoute>} />
+          <Route path="/pdpasetting" element={<PrivateRoute><PDPASetting /></PrivateRoute>} />
+          <Route path="/installmentsetting" element={<PrivateRoute><InstallmentSetting /></PrivateRoute>} />
+          <Route path="/projectsetting" element={<PrivateRoute><ProjectSetting /></PrivateRoute>} />
+          <Route path="/statusinsurancesetting" element={<PrivateRoute><StatusInsuranceSetting /></PrivateRoute>} />
         </Routes>
+      </AuthProvider>
     </Router>
   );
 }

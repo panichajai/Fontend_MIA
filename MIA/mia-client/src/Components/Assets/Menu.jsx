@@ -9,7 +9,14 @@ const Menu = () => {
   const [isOpenSystem, setIsOpenSystem] = useState(false);
   const navigate = useNavigate();
   const OnChangePage  = page => {
-    navigate(`/${page}`); 
+    if(page === "logout" ) {
+        localStorage.removeItem('token');  // ลบ token ออกจาก localStorage
+        navigate('/login');  // redirect ไปหน้า login
+    }
+    else { 
+      navigate(`/${page}`); 
+    }
+    
   }
   return (
     <div className="flex flex-col h-screen w-[248px] bg-white" >
@@ -98,7 +105,7 @@ const Menu = () => {
         <li className="p-2">
           <button className="flex items-center space-x-2 text-gray-700 hover:bg-gray-100 p-2 rounded w-full px-[24px]">
             <AiOutlineLogout  className="w-5 h-5" />
-            <div onClick={() => OnChangePage('')} className="w-full text-left pl-[10px]">ออกจากระบบ</div>
+            <div onClick={() => OnChangePage('logout')} className="w-full text-left pl-[10px]">ออกจากระบบ</div>
           </button>
         </li>
       </ul>

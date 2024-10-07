@@ -9,6 +9,8 @@ import PasswordField from '../Assets/PasswordField';
 import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
+import { useAuth } from '../../service/AuthContext';
+
 
 const Login = () => {
   const api = 'http://localhost:3005/api/';
@@ -19,6 +21,8 @@ const Login = () => {
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+
+  const {login} = useAuth();
 
   const handleLogin = () => {
     fetch(api+'users/login', {
@@ -36,7 +40,9 @@ const Login = () => {
       console.log("ผลลัพธ์จากการเข้าสู่ระบบ:", result);
       if (result.success) {
         console.log("เข้าสู่ระบบสำเร็จ");
-        OnChangePage ('dashbord')    } else {
+        login(result.data);
+        OnChangePage ('')    
+      } else {
         console.log("อีเมลหรือรหัสผ่านไม่ถูกต้อง");
         alert('อีเมลหรือรหัสผ่านไม่ถูกต้อง');
       }
