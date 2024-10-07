@@ -1,35 +1,50 @@
-import React, { useState } from 'react'; // เพิ่ม useState
-import { useNavigate } from 'react-router-dom'; // นำเข้า useNavigate
+import React, { useState } from 'react'; 
+import { useNavigate } from 'react-router-dom'; 
 import './Login.css';
 import logo from '../Assets/logo yellow circle.png';
 import background from '../Assets/background.png';
 import Google from '../Assets/google.svg';
 import Facebook from '../Assets/facebook.svg';
-// import PasswordField from '../Assets/PasswordField'; // นำเข้า PasswordField จากที่เราได้สร้างไว้
-// import TextField from '@mui/material/TextField';
+import PasswordField from '../Assets/PasswordField';
 import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
 
 const Login = () => {
-  const navigate = useNavigate(); // ใช้ useNavigate สำหรับการนำทาง
+  const api = 'http://localhost:3005/api/';
+  const navigate = useNavigate();
+  const OnChangePage  = page => {
+      navigate(`/${page}`); 
+    }  
 
-  // สร้าง state เพื่อเก็บข้อมูลอีเมลและรหัสผ่านที่ผู้ใช้กรอก
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  // ฟังก์ชัน handleLogin เพื่อตรวจสอบอีเมลและรหัสผ่าน
   const handleLogin = () => {
-    console.log("Email ที่กรอกคือ:",email);
-    console.log("Password ที่กรอกคือ:",password);
-
-    if (email === 'admin@gmail.com' && password === '1234') {
-      console.log("เข้าสู่รนะบบสำเร็จ");  
-      navigate('/customerlist'); 
-    } else {
+    fetch(api+'users/login', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        user_email: email, 
+        user_password: password,
+      }),
+    })
+    .then(response => response.json())
+    .then(result => {
+      console.log("ผลลัพธ์จากการเข้าสู่ระบบ:", result);
+      if (result.success) {
+        console.log("เข้าสู่ระบบสำเร็จ");
+        OnChangePage ('dashbord')    } else {
         console.log("อีเมลหรือรหัสผ่านไม่ถูกต้อง");
         alert('อีเมลหรือรหัสผ่านไม่ถูกต้อง');
-    }
+      }
+    })
+    .catch(error => {
+      console.error("เกิดข้อผิดพลาดในการเข้าสู่ระบบ:", error);
+      alert('เกิดข้อผิดพลาดในการเข้าสู่ระบบ');
+    });
   };
 
   return (
@@ -60,19 +75,13 @@ const Login = () => {
                     required 
                 />
             </div>
-
             <div className="">
-                <label htmlFor="password" style={{ color: '#006F68' }} className="block text-sm font-medium">
-                    รหัสผ่าน
-                </label>
-                <input 
-                    id="password" 
-                    type="password" 
-                    className="mt-1 w-full px-3 py-2 border border-gray-300 rounded-md" 
-                    value={password} 
-                    onChange={e => setPassword(e.target.value)} 
-                    required 
-                />
+              <PasswordField 
+                label="รหัสผ่าน"               // ข้อความกำกับ
+                placeholder="กรอกรหัสผ่าน"   // Placeholder ในช่องกรอก
+                value={password}              // ผูกกับ state ของ password
+                onChange={e => setPassword(e.target.value)}  // อัปเดต state เมื่อผู้ใช้กรอกข้อมูล
+              />
             </div>
           </Box>
           <Stack spacing={0} direction="row">
@@ -97,7 +106,7 @@ const Login = () => {
             <Button 
               variant="text"
               sx={{ color: '#006F68', fontSize: '14px', fontFamily: "'Prompt', sans-serif" }}
-              onClick={() => navigate('/signup')} // ใช้ navigate เพื่อไปยังเส้นทาง /signup
+              onClick={() => OnChangePage ('signup')} // ใช้ navigate เพื่อไปยังเส้นทาง /signup
             >
               สมัครสมาชิก
             </Button>
