@@ -10,10 +10,10 @@ import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
 import { useAuth } from '../../service/AuthContext';
-
+import API_BASE_URL from '../../config';
 
 const Login = () => {
-  const api = 'http://localhost:3005/api/';
+  const api = API_BASE_URL;
   const navigate = useNavigate();
   const OnChangePage  = page => {
       navigate(`/${page}`); 
