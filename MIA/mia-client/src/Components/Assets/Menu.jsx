@@ -27,7 +27,7 @@ const Menu = () => {
         <li className="p-2 ">
           <button className="flex items-center space-x-2 text-gray-700 hover:bg-gray-100 p-2 rounded w-full px-[24px]">
             <AiOutlineUnorderedList  className="w-5 h-5"/>
-            <div onClick={() => OnChangePage ('dashbord')} className="w-full text-left pl-[10px]">หน้าหลัก</div>
+            <div onClick={() => OnChangePage ('')} className="w-full text-left pl-[10px]">หน้าหลัก</div>
             {/* <AiOutlineDown  className="ml-auto" /> */}
           </button>
         </li>

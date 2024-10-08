@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import Header from '../Assets/Header';
 import Menu from '../Assets/Menu';
 import Nav from '../Assets/Nav';
@@ -6,6 +6,8 @@ import { useNavigate } from 'react-router-dom';
 import { AiOutlineEye, AiTwotoneEdit, AiOutlineDelete, AiOutlinePlus, AiOutlineCloseCircle  } from "react-icons/ai";
 import SearchInput from '../Assets/SearchInput';
 import Popup from '../Assets/Popup';
+import API_BASE_URL from '../../config';
+
 
 const CustomerList = () => {
   const [items, setItems] = useState([]); // เก็บข้อมูลทั้งหมด
@@ -15,25 +17,25 @@ const CustomerList = () => {
   const [selectedCustomerId, setSelectedCustomerId] = useState(null); // เก็บ id ลูกค้าที่เลือกจะลบ
   const navigate = useNavigate(); 
 
-  useEffect(() => { 
-    UserGet();
-  }, []);
+  const api = API_BASE_URL;
 
-  const api = 'http://localhost:3005/api/';
-
-
-  const UserGet = () => {
-    fetch(api+"customers") 
+  const UserGet = useCallback(() => {
+    fetch(api + "customers")
       .then(res => res.json())
       .then((result) => {
-        console.log(result);  
-        setItems(result.data); 
-        setFilteredItems(result.data); 
-      },
-      (error) => {
+        console.log(result);
+        setItems(result.data);
+        setFilteredItems(result.data);
+      })
+      .catch((error) => {
         console.error("Error fetching data: ", error);
       });
-  }
+  }, [api]); 
+
+  useEffect(() => { 
+    UserGet();
+  }, [UserGet]);
+
   
   const handleSearch = (e) => {
     const value = e.target.value.toLowerCase();
@@ -97,8 +99,8 @@ const CustomerList = () => {
       <div className="flex-1 flex flex-col">
         <Header />
         <div className="py-4 pl-6 bg-white">
-          <Nav />
-          <div className="mt-4 text-4xl ">ลูกค้า</div>        
+          <Nav pageName="ลูกค้า" />
+        <div className="mt-4 text-4xl ">ลูกค้า</div>        
         </div>
         <div className="px-6 ">
           <div className="flex w-full rounded-md my-4 gap-3">

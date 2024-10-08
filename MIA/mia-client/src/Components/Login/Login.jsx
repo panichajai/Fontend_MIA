@@ -17,7 +17,7 @@ const Login = () => {
   const navigate = useNavigate();
   const OnChangePage  = page => {
       navigate(`/${page}`); 
-    }  
+  }  
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');

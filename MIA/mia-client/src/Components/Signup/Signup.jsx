@@ -6,9 +6,11 @@ import PasswordField from '../Assets/PasswordField';
 import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
+import API_BASE_URL from '../../config';
+
 
 const Signup = () => {
-  const api = 'http://localhost:3005/api/';
+  const api = API_BASE_URL;
 
   const navigate = useNavigate();
 

@@ -10,12 +10,14 @@ import { DatePicker } from 'antd';
 import 'antd/dist/reset.css'; 
 import moment from 'moment'; 
 import 'react-datepicker/dist/react-datepicker.css'; 
-import { AiOutlinePlus, AiOutlineSave, AiOutlineCheckCircle, AiOutlineWarning } from 'react-icons/ai'; 
+import { AiOutlinePlus, AiOutlineSave, AiOutlineCheckCircle, AiOutlineWarning } from 'react-icons/ai';
+import API_BASE_URL from '../../config';
+
 
 const Customer = ({ mode }) => {
   const { id } = useParams();
+  const api = API_BASE_URL;
   const navigate = useNavigate();
-  const api = 'http://localhost:3005/api/';
 
   const [customer, setCustomer] = useState({
     customer_title: '',
@@ -55,7 +57,7 @@ const Customer = ({ mode }) => {
         redirect: 'follow',
       };
 
-      fetch(`${api}customers/${id}`, requestOptions)
+      fetch(`customers/${id}`, requestOptions)
         .then(response => response.json())
         .then(result => {
           if (result.status === 200 && result.success) {
@@ -146,7 +148,7 @@ const Customer = ({ mode }) => {
       body: raw,
       redirect: 'follow',
     };
-    const apiUrl = mode === 'create' ? api + 'customers' : `${api}customers/${id}`;
+    const apiUrl = mode === 'create' ? api + 'customers' : api+`customers/${id}`;
 
     fetch(apiUrl, requestOptions)
       .then(response => response.json())
@@ -186,10 +188,10 @@ const Customer = ({ mode }) => {
       </div>
       <div className="flex-1 flex flex-col">
         <Header />
-        <div className="py-4 pl-6 bg-white">
-          <Nav />
-          <div className="mt-4 text-4xl ">ลูกค้า</div>        
-        </div>
+            <div className="py-4 pl-6 bg-white">
+            <Nav pageName="ลูกค้า" />
+            <div className="mt-4 text-4xl ">ลูกค้า</div>        
+            </div>
         <div className="flex-1 flex flex-col">
           <div className="max-w p-6 m-6 bg-white shadow-md rounded-md">
             <h2 className="text-2xl font-semibold mb-4">
