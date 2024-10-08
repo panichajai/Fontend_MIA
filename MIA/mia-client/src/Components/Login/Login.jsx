@@ -83,10 +83,10 @@ const Login = () => {
             </div>
             <div className="">
               <PasswordField 
-                label="รหัสผ่าน"               // ข้อความกำกับ
-                placeholder="กรอกรหัสผ่าน"   // Placeholder ในช่องกรอก
-                value={password}              // ผูกกับ state ของ password
-                onChange={e => setPassword(e.target.value)}  // อัปเดต state เมื่อผู้ใช้กรอกข้อมูล
+                label="รหัสผ่าน"               
+                placeholder="กรอกรหัสผ่าน"  
+                value={password}              
+                onChange={e => setPassword(e.target.value)}  
               />
             </div>
           </Box>
@@ -94,7 +94,7 @@ const Login = () => {
             <Button className='login'
               variant="contained" 
               sx={{ backgroundColor: '#006F68', color: '#FFFFFF', width: '100%', borderRadius: '8px', marginTop: "24px", fontFamily: "'Prompt', sans-serif" }}
-              onClick={handleLogin} // เมื่อคลิกปุ่ม ให้เรียกใช้ handleLogin เพื่อตรวจสอบข้อมูล
+              onClick={handleLogin} 
             >
               เข้าสู่ระบบ
             </Button>    
@@ -112,7 +112,7 @@ const Login = () => {
             <Button 
               variant="text"
               sx={{ color: '#006F68', fontSize: '14px', fontFamily: "'Prompt', sans-serif" }}
-              onClick={() => OnChangePage ('signup')} // ใช้ navigate เพื่อไปยังเส้นทาง /signup
+              onClick={() => OnChangePage ('signup')} 
             >
               สมัครสมาชิก
             </Button>

@@ -14,11 +14,9 @@ const Dropdown = ({ value, onChange, label, options, placeholder, disabled }) =>
           disabled={disabled}
           style={{ cursor: disabled ? 'not-allowed' : 'pointer' }}
         >
-          {/* ตัวเลือกเริ่มต้น */}
           <option value="" disabled style={{ color: '#A0A0A0' }}>
             {placeholder}
           </option>
-          {/* ตัวเลือกอื่น ๆ */}
           {options.map((option, index) => (
             <option key={index} value={option} className="hover:bg-green-600 hover:text-white">
               {option}

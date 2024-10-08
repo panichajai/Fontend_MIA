@@ -9,11 +9,11 @@ import Popup from '../Assets/Popup';
 import API_BASE_URL from '../../config';
 
 const CustomerList = () => {
-  const [items, setItems] = useState([]); // เก็บข้อมูลทั้งหมด
-  const [filteredItems, setFilteredItems] = useState([]); // เก็บข้อมูลที่กรองแล้ว
-  const [searchTerm, setSearchTerm] = useState(''); // เก็บค่าที่ผู้ใช้พิมพ์สำหรับค้นหา
-  const [modalIsOpen, setModalIsOpen] = useState(false); // State สำหรับควบคุม popup
-  const [selectedCustomerId, setSelectedCustomerId] = useState(null); // เก็บ id ลูกค้าที่เลือกจะลบ
+  const [items, setItems] = useState([]); 
+  const [filteredItems, setFilteredItems] = useState([]);
+  const [searchTerm, setSearchTerm] = useState(''); 
+  const [modalIsOpen, setModalIsOpen] = useState(false); 
+  const [selectedCustomerId, setSelectedCustomerId] = useState(null); 
   const [loading, setLoading] = useState(false); 
   const navigate = useNavigate(); 
 
@@ -87,7 +87,7 @@ const CustomerList = () => {
         alert(result['message']);
         if (result['status'] === 200) {
           UserGet(); 
-          closeDeleteModal(); // ปิด popup หลังลบข้อมูลสำเร็จ
+          closeDeleteModal(); 
         }
       })
       .catch((error) => console.error(error));

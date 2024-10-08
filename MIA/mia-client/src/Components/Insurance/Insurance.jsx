@@ -4,13 +4,11 @@ import Menu from '../Assets/Menu';
 import Nav from '../Assets/Nav';
 import { AiOutlineEye, AiTwotoneEdit, AiOutlineDelete,AiOutlinePlus } from "react-icons/ai";
 import SearchInput from '../Assets/SearchInput';
-// import API_BASE_URL from '../../config';
 
 const Insurance = () => {
-  // const api = API_BASE_URL;
   const [items, setItems] = useState([]); 
   const [filteredItems, setFilteredItems] = useState([]);
-  const [searchTerm, setSearchTerm] = useState(''); // เก็บค่าที่ผู้ใช้พิมพ์สำหรับค้นหา
+  const [searchTerm, setSearchTerm] = useState(''); 
   const [dataResult , setDataResult] = useState([
     {
       id:1,
@@ -57,27 +55,20 @@ const Insurance = () => {
         insurance.vehicleNumber.toLowerCase().includes(value)
       );
       
-      console.log('Filtered Items:', filtered); // ตรวจสอบผลลัพธ์ของการกรอง
+      console.log('Filtered Items:', filtered); 
       setFilteredItems(filtered);
     } else {
       console.log("No items to filter");
     }
   };
   const IncludesUpdate = id => {
-    // navigate(`/customer/update/${id}`); 
   }
 
   const IncludesView = id => {
-    // navigate(`/customer/view/${id}`); 
   }
 
-  // const IncludesCreate = () => {
-  //   // navigate(`/customer/create`); 
-  // }
 
   const openDeleteModal = id => {
-    // setSelectedCustomerId(id);
-    // setModalIsOpen(true);
   }
   return (
     <div className="flex h-screen" style={{ backgroundColor: '#F4F8FA' }}>

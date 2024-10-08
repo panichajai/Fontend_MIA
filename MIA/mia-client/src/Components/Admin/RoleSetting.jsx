@@ -39,27 +39,19 @@ const RoleSetting = () => {
        
       );
       
-      console.log('Filtered Items:', filtered); // ตรวจสอบผลลัพธ์ของการกรอง
+      console.log('Filtered Items:', filtered); 
       setFilteredItems(filtered);
     } else {
       console.log("No items to filter");
     }
   };
   const roleUpdate = id => {
-    // navigate(`/customer/update/${id}`); 
   }
 
   const roleView = id => {
-    // navigate(`/customer/view/${id}`); 
   }
 
-  // const IncludesCreate = () => {
-  //   // navigate(`/customer/create`); 
-  // }
-
   const openDeleteModal = id => {
-    // setSelectedCustomerId(id);
-    // setModalIsOpen(true);
   }
   return (
     <div className="flex h-screen" style={{ backgroundColor: '#F4F8FA' }}>

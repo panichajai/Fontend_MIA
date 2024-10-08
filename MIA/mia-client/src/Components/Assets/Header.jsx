@@ -8,15 +8,12 @@ const Header = () => {
     <header className="flex justify-end items-center p-2.5 bg-white mb-1">
       <Menu as="div" className="relative inline-block text-left">
         <div className="flex items-center space-x-2">
-          {/* User Icon */}
           <UserCircleIcon className="w-8 h-8 text-blue-500" />
           <span>admin</span>
-          {/* Dropdown Toggle */}
           <Menu.Button>
             <ChevronDownIcon className="w-5 h-5" />
           </Menu.Button>
         </div>
-        {/* Dropdown Menu */}
         <Menu.Items className="absolute right-0 mt-2 w-48 origin-top-right bg-white divide-y divide-gray-100 rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
   <div className="py-1">
     <Menu.Item>

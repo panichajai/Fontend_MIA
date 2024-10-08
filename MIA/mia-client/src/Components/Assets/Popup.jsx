@@ -1,7 +1,7 @@
 import React from 'react';
 import Modal from 'react-modal';
 
-Modal.setAppElement('#root'); // ระบุ root element
+Modal.setAppElement('#root');
 
 const Popup = ({ 
     isOpen, 
@@ -12,7 +12,7 @@ const Popup = ({
     cancelLabel, 
     onConfirm, 
     icon, 
-    confirmButtonStyle // รับ style ปุ่มยืนยัน 
+    confirmButtonStyle 
   }) => {
     return (
       <Modal
@@ -51,7 +51,7 @@ const Popup = ({
           <button
             onClick={onConfirm}
             className="flex-1 py-2 px-6 rounded-md text-white"
-            style={confirmButtonStyle} // ใช้ confirmButtonStyle สำหรับ style ของปุ่มยืนยัน
+            style={confirmButtonStyle} 
           >
             {confirmLabel}
           </button>

@@ -1,34 +1,30 @@
-/* สำหรับการจัดการภายใน container */
     .main-container {
-        display: flex;              /* ใช้ Flexbox */
-        justify-content: center;    /* จัดเนื้อหาให้อยู่ตรงกลางแนวนอน */
-        align-items: center;        /* จัดเนื้อหาให้อยู่ตรงกลางแนวตั้ง */
-        width: 100%;                /* กำหนดความกว้างเต็ม */
-        height: 100vh;              /* ความสูงเต็ม viewport */
+        display: flex;             
+        justify-content: center;    
+        align-items: center;        
+        width: 100%;                
+        height: 100vh;              
         background-color: #006F68;
-        background-color: rgba(0, 111, 104, 0.8); /* 0.8 หมายถึง 80% ทึบ */
+        background-color: rgba(0, 111, 104, 0.8); 
     }
     
-    /* สำหรับการจัดการหลักของคอนเทนเนอร์ */
     
     .container {
-        display: flex; /* ใช้ Flexbox */
-        place-items: center; /* จัดแนวข้อความตรงกลางทั้งแนวนอนและแนวตั้ง */
+        display: flex; 
+        place-items: center; 
         width: 855px;
         height: 642px;
-        /* background-image: url('../Assets/background.png'); */
     }
 
-    /* เนื้อหาฝั่งซ้าย */
     .left-side {
-        flex: 1; /* ทำให้ขยายความสูงเต็มคอนเทนเนอร์ */
-        width: 378px; /* ความกว้าง */
+        flex: 1; 
+        width: 378px; 
         height: 430px;
-        box-sizing: border-box; /* รวมขอบในขนาด */       
-        display: flex; /* ใช้ Flexbox */
-        flex-direction: column; /* เรียงเนื้อหาในแนวตั้ง */
+        box-sizing: border-box;   
+        display: flex; 
+        flex-direction: column; 
         margin-top: 64px;
-        gap: 48px; /* กำหนดระยะห่างระหว่างเนื้อหาแต่ละชิ้นเป็น 24px */
+        gap: 48px; 
     }
 
     .logo {
@@ -44,11 +40,10 @@
         padding-left: 48px;
     }
     
-    /* เนื้อหาฝั่งขวา */
     .right-side {
-        display: flex; /* ใช้ Flexbox */
-        flex-direction: column; /*จัดการทิศทางขององค์ประกอบเป็นแนวตั้ง (จากบนลงล่าง)*/
-        flex: 1; /* ปรับขนาดตามต้องการ */
+        display: flex; 
+        flex-direction: column; 
+        flex: 1; 
         font-family: 'Prompt', sans-serif;
         width: 378px;
         height: 100%;
@@ -84,12 +79,12 @@
 
     .google {
         background-color: #fff;
-        border: 1px solid #D9D9D9; /* ขนาดกรอบ 2px, แบบเส้น solid, สีแดง */
+        border: 1px solid #D9D9D9; 
     }
 
     .facebook {
         background-color: #fff;
-        border: 1px solid #D9D9D9; /* ขนาดกรอบ 2px, แบบเส้น solid, สีแดง */
+        border: 1px solid #D9D9D9; 
     }
 
 

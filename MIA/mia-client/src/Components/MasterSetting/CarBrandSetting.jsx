@@ -22,8 +22,6 @@ const CarBrandSetting = () => {
           <div className="flex w-full rounded-md my-4 gap-3">
             <SearchInput
               placeholder="ค้นหาด้วย ค้นหาด้วย Brand (EN), Model (EN)"
-              // value={searchTerm}
-              // onChange={handleSearch}
             />
             <button className="flex justify-center items-center space-x-2 border border-gray-300 px-3.5 rounded-md" style={{ backgroundColor: '#006F68' }}>
               <AiOutlinePlus className="w-5 h-5 text-white" />

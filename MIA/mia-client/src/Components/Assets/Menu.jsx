@@ -10,13 +10,12 @@ const Menu = () => {
   const navigate = useNavigate();
   const OnChangePage  = page => {
     if(page === "logout" ) {
-        localStorage.removeItem('token');  // ลบ token ออกจาก localStorage
-        navigate('/login');  // redirect ไปหน้า login
+        localStorage.removeItem('token'); 
+        navigate('/login'); 
     }
     else { 
       navigate(`/${page}`); 
     }
-    
   }
   return (
     <div className="flex flex-col h-screen w-[248px] bg-white" >
@@ -28,7 +27,6 @@ const Menu = () => {
           <button className="flex items-center space-x-2 text-gray-700 hover:bg-gray-100 p-2 rounded w-full px-[24px]">
             <AiOutlineUnorderedList  className="w-5 h-5"/>
             <div onClick={() => OnChangePage ('')} className="w-full text-left pl-[10px]">หน้าหลัก</div>
-            {/* <AiOutlineDown  className="ml-auto" /> */}
           </button>
         </li>
         <li className="p-2">
@@ -43,8 +41,6 @@ const Menu = () => {
             <div onClick={() => OnChangePage ('Insurance')} className="w-full text-left pl-[10px]">กรมธรรม์</div>
           </button>
         </li>
-
-        {/* Master Setting */}
         <li className="p-2">
           <button
             onClick={() => setIsOpenMaster(!isOpenMaster)}
@@ -57,12 +53,10 @@ const Menu = () => {
           {isOpenMaster && (
             <ul className="pl-8 space-y-2">
               <li><button onClick={() => OnChangePage ('CarBrandSetting')} className="block p-1 text-gray-600 hover:text-gray-900">ยี่ห้อรถ Settings</button></li>
-              {/* <li><button onClick={() => OnChangePage ('')} className="block p-1 text-gray-600 hover:text-gray-900">คำนำหน้าชื่อ (Hide)</button></li> */}
             </ul>
           )}
         </li>
 
-        {/* Admin */}
         <li className="p-2">
           <button
             onClick={() => setIsOpenAdmin(!isOpenAdmin)}
@@ -81,8 +75,6 @@ const Menu = () => {
             </ul>
           )}
         </li>
-
-        {/* System Setting */}
         <li className="p-2">
           <button
             onClick={() => setIsOpenSystem(!isOpenSystem)}
@@ -100,8 +92,6 @@ const Menu = () => {
             </ul>
           )}
         </li>
-
-        {/* Logout */}
         <li className="p-2">
           <button className="flex items-center space-x-2 text-gray-700 hover:bg-gray-100 p-2 rounded w-full px-[24px]">
             <AiOutlineLogout  className="w-5 h-5" />

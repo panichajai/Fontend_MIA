@@ -1,6 +1,4 @@
 import React from 'react';
-// import { AiOutlineSearch} from "react-icons/ai";
-
 
 export const SearchInput = ({ placeholder, value, onChange }) => {
 
@@ -13,9 +11,6 @@ export const SearchInput = ({ placeholder, value, onChange }) => {
           value={value}
           onChange={onChange}
         />
-        {/* <button className="px-4 text-gray-400 bg-white border-l border-gray-300 ">
-          <AiOutlineSearch className="w-5 h-5"/>
-        </button> */}
       </div>
   );
 }

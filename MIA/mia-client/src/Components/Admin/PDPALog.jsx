@@ -44,7 +44,7 @@ const PDPALog = () => {
         papaLog.role.toLowerCase().includes(value) 
       );
       
-      console.log('Filtered Items:', filtered); // ตรวจสอบผลลัพธ์ของการกรอง
+      console.log('Filtered Items:', filtered); 
       setFilteredItems(filtered);
     } else {
       console.log("No items to filter");
@@ -52,7 +52,6 @@ const PDPALog = () => {
   };
 
   const papaLogView = id => {
-    // navigate(`/customer/view/${id}`); 
   }
 
   return (

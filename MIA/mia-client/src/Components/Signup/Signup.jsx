@@ -14,12 +14,10 @@ const Signup = () => {
 
   const navigate = useNavigate();
 
-  // สร้าง state เพื่อเก็บข้อมูลจากฟิลด์
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
 
-  // ฟังก์ชัน handleSignup สำหรับการส่งข้อมูลไปยัง API
   const handleSignup = async () => {
     if (password !== confirmPassword) {
         alert("รหัสผ่านและยืนยันรหัสผ่านไม่ตรงกัน");
@@ -39,11 +37,10 @@ const Signup = () => {
         });
 
         const result = await response.json();
-        console.log('Result:', result); // Log ผลลัพธ์ทั้งหมดจาก API
-        console.log('Result Message:', result.message); // Log ข้อความที่ส่งกลับมา
+        console.log('Result:', result); 
+        console.log('Result Message:', result.message); 
 
         if (!response.ok) {
-            // เปลี่ยนไปใช้ข้อความที่ได้รับจริงๆ
             if (result.message && result.message.includes('')) {
                 alert('อีเมลนี้มีผู้ใช้งานแล้ว');
             } else {
@@ -89,21 +86,21 @@ const Signup = () => {
                 type="email"
                 className="mt-1 w-full px-3 py-2 border border-gray-300 rounded-md"
                 value={email}
-                onChange={e => setEmail(e.target.value)} // เก็บค่าอีเมลใน state
+                onChange={e => setEmail(e.target.value)} 
                 required
               />
             </div>
             <PasswordField
               label="รหัสผ่าน"
               id="password"
-              value={password} // เก็บค่ารหัสผ่านใน state
-              onChange={e => setPassword(e.target.value)} // อัปเดต state เมื่อกรอกข้อมูล
+              value={password} 
+              onChange={e => setPassword(e.target.value)} 
             />
             <PasswordField
               label="ยืนยันรหัสผ่าน"
               id="confirm-password"
-              value={confirmPassword} // เก็บค่ารหัสผ่านยืนยันใน state
-              onChange={e => setConfirmPassword(e.target.value)} // อัปเดต state เมื่อกรอกข้อมูล
+              value={confirmPassword} 
+              onChange={e => setConfirmPassword(e.target.value)} 
             />
           </Box>
 
@@ -119,7 +116,7 @@ const Signup = () => {
                 marginTop: "32px",
                 fontFamily: "'Prompt', sans-serif",
               }}
-              onClick={handleSignup} // เมื่อคลิกให้เรียก handleSignup เพื่อส่งข้อมูลไปยัง API
+              onClick={handleSignup} 
             >
               สมัครสมาชิก
             </Button>
@@ -134,7 +131,7 @@ const Signup = () => {
             <Button
               variant="text"
               sx={{ color: '#006F68', fontSize: '14px', fontFamily: "'Prompt', sans-serif" }}
-              onClick={() => navigate('/')} // นำผู้ใช้ไปยังหน้าล็อกอิน
+              onClick={() => navigate('/')}
             >
               เข้าสู่ระบบ
             </Button>

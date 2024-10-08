@@ -57,7 +57,7 @@ const Customer = ({ mode }) => {
         redirect: 'follow',
       };
 
-      fetch(`customers/${id}`, requestOptions)
+      fetch(`${api}customers/${id}`, requestOptions)
         .then(response => response.json())
         .then(result => {
           if (result.status === 200 && result.success) {
