@@ -1,12 +1,61 @@
-import React from 'react'
+import React, { useState, useEffect, useCallback } from 'react';
 import Header from '../Assets/Header';
 import Menu from '../Assets/Menu';
 import Nav from '../Assets/Nav';
-import { AiOutlinePlus } from "react-icons/ai";
 import SearchInput from '../Assets/SearchInput';
+import { AiOutlineEye, AiTwotoneEdit, AiOutlineDelete, AiOutlinePlus  } from "react-icons/ai";
 
 const InstallmentSetting = () => {
+  const [items, setItems] = useState([]); 
+  const [filteredItems, setFilteredItems] = useState([]);
+  const [searchTerm, setSearchTerm] = useState('');
+  const [dataResult , setDataResult] = useState([
+    { statusTH: "รอยืนยัน", statusEN: "NotConfirmed" },
+    { statusTH: "ยืนยันแล้ว", statusEN: "Pending" },
+    { statusTH: "อยู่ระหว่างผ่อนชำระ", statusEN: "Installment" },
+    { statusTH: "เกินกำหนดชำระ", statusEN: "Overdue" },
+    { statusTH: "จ่ายครบทุกงวด", statusEN: "FullyPaid" },
+    { statusTH: "ยกเลิก", statusEN: "Cancelled" },
+  ]);
+  const UserGet = useCallback(() => {
+    setItems(dataResult);
+    setFilteredItems(dataResult);
+  }, [dataResult]);
+  useEffect(() => {
+    UserGet();
+  }, [UserGet]);
+  const handleSearch = (e) => {
+    const value = e.target.value.toLowerCase();
+    console.log("handleSearch value :", value);
+    setSearchTerm(value);
+    if (items.length > 0) {
+      const filtered = items.filter(installmentSetting =>
+        installmentSetting.statusTH.toLowerCase().includes(value) ||
+        installmentSetting.statusEN.toLowerCase().includes(value)
+      );
+      
+      console.log('Filtered Items:', filtered); // ตรวจสอบผลลัพธ์ของการกรอง
+      setFilteredItems(filtered);
+    } else {
+      console.log("No items to filter");
+    }
+  };
+  const installmentSettingUpdate = id => {
+    // navigate(`/customer/update/${id}`); 
+  }
 
+  const installmentSettingView = id => {
+    // navigate(`/customer/view/${id}`); 
+  }
+
+  // const installmentSettingCreate = () => {
+  //   // navigate(`/customer/create`); 
+  // }
+
+  const openDeleteModal = id => {
+    // setSelectedCustomerId(id);
+    // setModalIsOpen(true);
+  }
   return (
     <div className="flex h-screen" style={{ backgroundColor: '#F4F8FA' }}>
       <div className="w-[248px] bg-gray-100">
@@ -22,8 +71,8 @@ const InstallmentSetting = () => {
           <div className="flex w-full rounded-md my-4 gap-3">
             <SearchInput
               placeholder="ค้นหาด้วย สถานะผ่อนชำระ (TH), สถานะผ่อนชำระ (EN)"
-              // value={searchTerm}
-              // onChange={handleSearch}
+              value={searchTerm}
+              onChange={handleSearch}
             />
             <button className="flex justify-center items-center space-x-2 border border-gray-300 px-3.5 rounded-md" style={{ backgroundColor: '#006F68' }}>
               <AiOutlinePlus className="w-5 h-5 text-white" />
@@ -33,11 +82,34 @@ const InstallmentSetting = () => {
             <table className="table-auto w-full bg-white border border-gray-300">
               <thead>
                 <tr className="bg-gray-100">
-                  <th className="px-4 py-2">สถานะผ่อนชำระ (TH)</th>
-                  <th className="px-4 py-2">สถานะผ่อนชำระ (EN)</th>
-                  <th className="px-4 py-2">เครื่องมือ</th>
+                <th className="px-4 py-2 text-center">ลำดับ</th>
+                <th className="px-4 py-2">สถานะผ่อนชำระ (TH)</th>
+                <th className="px-4 py-2">สถานะผ่อนชำระ (EN)</th>
+                <th className="px-4 py-2">เครื่องมือ</th>
                 </tr>
               </thead>
+              <tbody>
+              {Array.isArray(filteredItems) && filteredItems.map((installmentSetting, index) => (
+                <tr key={installmentSetting._id} className="border-t">
+                  <td className="px-4 py-2 text-center">{index + 1}</td>
+                  <td className="px-4 py-2 text-center">{installmentSetting.statusTH}</td>
+                  <td className="px-4 py-2 text-center">{installmentSetting.statusEN}</td>
+                  <td className="px-4 py-2 text-center">
+                    <div className="flex justify-center items-center space-x-4">
+                      <button onClick={() => installmentSettingView(installmentSetting._id)} className="text-black hover:text-gray-700">
+                        <AiOutlineEye className="w-5 h-5" />
+                      </button>
+                      <button onClick={() => installmentSettingUpdate(installmentSetting._id)} className="text-black hover:text-gray-700">
+                        <AiTwotoneEdit className="w-5 h-5" />
+                      </button>
+                      <button onClick={() => openDeleteModal(installmentSetting._id)} className="text-black hover:text-gray-700">
+                        <AiOutlineDelete className="w-5 h-5" />
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
             </table>
           </div>
       </div>

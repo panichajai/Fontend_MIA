@@ -8,27 +8,30 @@ import SearchInput from '../Assets/SearchInput';
 import Popup from '../Assets/Popup';
 import API_BASE_URL from '../../config';
 
-
 const CustomerList = () => {
   const [items, setItems] = useState([]); // เก็บข้อมูลทั้งหมด
   const [filteredItems, setFilteredItems] = useState([]); // เก็บข้อมูลที่กรองแล้ว
   const [searchTerm, setSearchTerm] = useState(''); // เก็บค่าที่ผู้ใช้พิมพ์สำหรับค้นหา
   const [modalIsOpen, setModalIsOpen] = useState(false); // State สำหรับควบคุม popup
   const [selectedCustomerId, setSelectedCustomerId] = useState(null); // เก็บ id ลูกค้าที่เลือกจะลบ
+  const [loading, setLoading] = useState(false); 
   const navigate = useNavigate(); 
 
   const api = API_BASE_URL;
 
   const UserGet = useCallback(() => {
+    setLoading(true);
     fetch(api + "customers")
       .then(res => res.json())
       .then((result) => {
         console.log(result);
         setItems(result.data);
         setFilteredItems(result.data);
+        setLoading(false); 
       })
       .catch((error) => {
         console.error("Error fetching data: ", error);
+        setLoading(false); 
       });
   }, [api]); 
 
@@ -36,7 +39,6 @@ const CustomerList = () => {
     UserGet();
   }, [UserGet]);
 
-  
   const handleSearch = (e) => {
     const value = e.target.value.toLowerCase();
     setSearchTerm(value); 
@@ -100,7 +102,7 @@ const CustomerList = () => {
         <Header />
         <div className="py-4 pl-6 bg-white">
           <Nav pageName="ลูกค้า" />
-        <div className="mt-4 text-4xl ">ลูกค้า</div>        
+          <div className="mt-4 text-4xl ">ลูกค้า</div>        
         </div>
         <div className="px-6 ">
           <div className="flex w-full rounded-md my-4 gap-3">
@@ -114,38 +116,45 @@ const CustomerList = () => {
               <div className="ml-2 " style={{color:'white'}}>สร้าง</div> 
             </button>
           </div>
-          <table className="table-auto w-full bg-white border border-gray-300">
-            <thead>
-              <tr className="bg-gray-100">
-                <th className="px-4 py-2">ชื่อ-สกุล</th>
-                <th className="px-4 py-2">เบอร์โทรศัพท์</th>
-                <th className="px-4 py-2">บัตรประชาชน</th>
-                <th className="px-4 py-2">เครื่องมือ</th>
-              </tr>
-            </thead>
-            <tbody>
-            {Array.isArray(filteredItems) && filteredItems.map(customer => (
-              <tr key={customer._id} className="border-t"> 
-                <td className="px-4 py-2">{customer.customer_fname} {customer.customer_lname}</td>
-                <td className="px-4 py-2">{customer.customer_phone}</td>
-                <td className="px-4 py-2">{customer.customer_idCard}</td>
-                <td className="px-4 py-2 ">
-                  <div className="flex justify-center items-center space-x-4">
-                      <button onClick={() => CustomerView(customer._id)} className="text-black hover:text-gray-700">
-                      <AiOutlineEye className="w-5 h-5"/>
-                      </button>
-                      <button onClick={() => CustomerUpdate(customer._id)} className="text-black hover:text-gray-700 ">
-                      <AiTwotoneEdit className="w-5 h-5"/>
-                      </button>
-                      <button onClick={() => openDeleteModal(customer._id)} className="text-black hover:text-gray-700">
-                      <AiOutlineDelete  className="w-5 h-5"/>
-                      </button>
-                  </div>
-                </td>
-              </tr>
-              ))}
-            </tbody>
-          </table>
+
+          {loading ? (
+            <div className="text-center py-6">Loading...</div> 
+          ) : (
+            <table className="table-auto w-full bg-white border border-gray-300">
+              <thead>
+                <tr className="bg-gray-100">
+                  <th className="px-4 py-2 text-center">ลำดับ</th>
+                  <th className="px-4 py-2 text-center">ชื่อ-สกุล</th>
+                  <th className="px-4 py-2 text-center">เบอร์โทรศัพท์</th>
+                  <th className="px-4 py-2 text-center">บัตรประชาชน</th>
+                  <th className="px-4 py-2 text-center">เครื่องมือ</th>
+                </tr>
+              </thead>
+              <tbody>
+                {Array.isArray(filteredItems) && filteredItems.map((customer, index) => (
+                  <tr key={customer._id} className="border-t"> 
+                    <td className="px-4 py-2 text-center">{index + 1}</td>
+                    <td className="px-4 py-2 text-center">{customer.customer_fname} {customer.customer_lname}</td>
+                    <td className="px-4 py-2 text-center">{customer.customer_phone}</td>
+                    <td className="px-4 py-2 text-center">{customer.customer_idCard}</td>
+                    <td className="px-4 py-2 text-center">
+                      <div className="flex justify-center items-center space-x-4">
+                        <button onClick={() => CustomerView(customer._id)} className="text-black hover:text-gray-700">
+                          <AiOutlineEye className="w-5 h-5"/>
+                        </button>
+                        <button onClick={() => CustomerUpdate(customer._id)} className="text-black hover:text-gray-700 ">
+                          <AiTwotoneEdit className="w-5 h-5"/>
+                        </button>
+                        <button onClick={() => openDeleteModal(customer._id)} className="text-black hover:text-gray-700">
+                          <AiOutlineDelete  className="w-5 h-5"/>
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          )}
         </div>
       </div>
 
