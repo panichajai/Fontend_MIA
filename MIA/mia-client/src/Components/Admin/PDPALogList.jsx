@@ -77,9 +77,9 @@ const PDPALogList = () => {
               value={searchTerm}
               onChange={handleSearch}
             />
-            <button className="flex justify-center items-center space-x-2 border border-gray-300 px-3.5 rounded-md" style={{ backgroundColor: '#006F68' }}>
+            <button onClick={PDPALogCreate} className="flex justify-center items-center space-x-2 border border-gray-300 px-3.5 rounded-md" style={{ backgroundColor: '#006F68' }}>
               <AiOutlinePlus className="w-5 h-5 text-white" />
-              <div onClick={PDPALogCreate} className="ml-2 " style={{color:'white'}}>สร้าง</div> 
+              <div className="ml-2 " style={{color:'white'}}>สร้าง</div> 
             </button>
             </div>
             <table className="table-auto w-full bg-white border border-gray-300">
