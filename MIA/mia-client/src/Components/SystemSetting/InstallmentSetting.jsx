@@ -1,116 +1,83 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React from 'react';
 import Header from '../Assets/Header';
 import Menu from '../Assets/Menu';
 import Nav from '../Assets/Nav';
-import SearchInput from '../Assets/SearchInput';
-import { AiOutlineEye, AiTwotoneEdit, AiOutlineDelete, AiOutlinePlus  } from "react-icons/ai";
+import { useNavigate } from 'react-router-dom';
+import { AiOutlinePlus  } from 'react-icons/ai';
 
 const InstallmentSetting = () => {
-  const [items, setItems] = useState([]); 
-  const [filteredItems, setFilteredItems] = useState([]);
-  const [searchTerm, setSearchTerm] = useState('');
-  const [dataResult , setDataResult] = useState([
-    { statusTH: "รอยืนยัน", statusEN: "NotConfirmed" },
-    { statusTH: "ยืนยันแล้ว", statusEN: "Pending" },
-    { statusTH: "อยู่ระหว่างผ่อนชำระ", statusEN: "Installment" },
-    { statusTH: "เกินกำหนดชำระ", statusEN: "Overdue" },
-    { statusTH: "จ่ายครบทุกงวด", statusEN: "FullyPaid" },
-    { statusTH: "ยกเลิก", statusEN: "Cancelled" },
-  ]);
-  const UserGet = useCallback(() => {
-    setItems(dataResult);
-    setFilteredItems(dataResult);
-  }, [dataResult]);
-  useEffect(() => {
-    UserGet();
-  }, [UserGet]);
-  const handleSearch = (e) => {
-    const value = e.target.value.toLowerCase();
-    console.log("handleSearch value :", value);
-    setSearchTerm(value);
-    if (items.length > 0) {
-      const filtered = items.filter(installmentSetting =>
-        installmentSetting.statusTH.toLowerCase().includes(value) ||
-        installmentSetting.statusEN.toLowerCase().includes(value)
-      );
-      
-      console.log('Filtered Items:', filtered); 
-      setFilteredItems(filtered);
-    } else {
-      console.log("No items to filter");
-    }
-  };
-  const installmentSettingUpdate = id => {
-  }
+    const navigate = useNavigate();
 
-  const installmentSettingView = id => {
-  }
-
-  const openDeleteModal = id => {
-  }
   return (
     <div className="flex h-screen" style={{ backgroundColor: '#F4F8FA' }}>
-      <div className="w-[248px] bg-gray-100">
-          <Menu />
-      </div>
-      <div className="flex-1 flex flex-col">
-        <Header />
-        <div className="py-4 pl-6 bg-white">
-          <Nav pageName="ผ่อนชำระ Setting" />
-          <div className="mt-4 text-4xl ">ผ่อนชำระ Setting</div>        
+        <div className="w-[248px] bg-gray-100">
+            <Menu />
         </div>
-        <div className="px-6 ">
-          <div className="flex w-full rounded-md my-4 gap-3">
-            <SearchInput
-              placeholder="ค้นหาด้วย สถานะผ่อนชำระ (TH), สถานะผ่อนชำระ (EN)"
-              value={searchTerm}
-              onChange={handleSearch}
-            />
-            <button className="flex justify-center items-center space-x-2 border border-gray-300 px-3.5 rounded-md" style={{ backgroundColor: '#006F68' }}>
-              <AiOutlinePlus className="w-5 h-5 text-white" />
-              <div className="ml-2 " style={{color:'white'}}>สร้าง</div> 
-            </button>
-            </div>
-            <table className="table-auto w-full bg-white border border-gray-300">
-              <thead>
-                <tr className="bg-gray-100">
-                <th className="px-4 py-2 text-center">ลำดับ</th>
-                <th className="px-4 py-2">สถานะผ่อนชำระ (TH)</th>
-                <th className="px-4 py-2">สถานะผ่อนชำระ (EN)</th>
-                <th className="px-4 py-2">เครื่องมือ</th>
-                </tr>
-              </thead>
-              <tbody>
-              {Array.isArray(filteredItems) && filteredItems.map((installmentSetting, index) => (
-                <tr key={installmentSetting._id} className="border-t">
-                  <td className="px-4 py-2 text-center">{index + 1}</td>
-                  <td className="px-4 py-2 text-center">{installmentSetting.statusTH}</td>
-                  <td className="px-4 py-2 text-center">{installmentSetting.statusEN}</td>
-                  <td className="px-4 py-2 text-center">
-                    <div className="flex justify-center items-center space-x-4">
-                      <button onClick={() => installmentSettingView(installmentSetting._id)} className="text-black hover:text-gray-700">
-                        <AiOutlineEye className="w-5 h-5" />
-                      </button>
-                      <button onClick={() => installmentSettingUpdate(installmentSetting._id)} className="text-black hover:text-gray-700">
-                        <AiTwotoneEdit className="w-5 h-5" />
-                      </button>
-                      <button onClick={() => openDeleteModal(installmentSetting._id)} className="text-black hover:text-gray-700">
-                        <AiOutlineDelete className="w-5 h-5" />
-                      </button>
-                    </div>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-            </table>
-          </div>
-      </div>
+        <div className="flex-1 flex flex-col">
+            <Header />
+                <div className="py-4 pl-6 bg-white">
+                    <Nav pageName="ผ่อนชำระ Settingr" />
+                    <div className="mt-4 text-4xl ">ผ่อนชำระ Setting</div>        
+                </div>
+                <div className="flex-1 flex flex-col max-w p-6 m-6 bg-white shadow-md rounded-md">
+                    <h2 className="text-2xl font-semibold mb-4">
+                        สร้างรายละเอียดผ่อนชำระ
+                    </h2>
+                    <form >
+                        <div className="flex flex-col gap-6 mb-6">
+                            <div className="flex-1">
+                                <label className="block text-sm font-medium text-gray-700">สถานะผ่อนชำระ (TH)</label>
+                                <input
+                                    type="text"
+                                    //   value={customer.customer_fname}
+                                    //   onChange={e => {
+                                    //     const value = e.target.value;
+                                    //     if (/^[ก-๙\s]*$/.test(value)) {
+                                    //       setCustomer({ ...customer, customer_fname: value });
+                                    //     }
+                                    //   }}
+                                    className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm"
+                                    required
+                                    //   disabled={disable}
+                                />
+                            </div>
+                            <div className="flex-1">
+                                <label className="block text-sm font-medium text-gray-700">สถานะผ่อนชำระ (EN)</label>
+                                <input
+                                    type="text"
+                                    //   value={customer.customer_lname}
+                                    //   onChange={e => {
+                                    //     const value = e.target.value;
+                                    //     if (/^[ก-๙\s]*$/.test(value)) {
+                                    //       setCustomer({ ...customer, customer_lname: value });
+                                    //     }
+                                    //   }}
+                                    className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm"
+                                    required
+                                    //   disabled={disable}
+                                />
+                            </div>    
+                        </div>
+                        <div className="flex row gap-2">
+                            <button
+                            onClick={() => navigate('/installmentsetting')}
+                            className="w-full border-2 text-black py-2 px-4 rounded-md">
+                            ยกเลิก
+                            </button>
+                            <button
+                            className="w-full text-white py-2 px-4 rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                            style={{ backgroundColor: '#006F68'}} 
+                            >
+                                <AiOutlinePlus className="inline-block mr-1" />
+                                สร้างผ่อนชำระ
+                            </button>
+                        </div>
+                    </form>
+                </div>
+        </div>
     </div>
-
     
   )
-
-  
 }
-export default InstallmentSetting;
 
+export default InstallmentSetting;

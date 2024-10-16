@@ -1,144 +1,542 @@
-import { useState, useEffect, useCallback }  from 'react'
+import React, { useState } from 'react';
 import Header from '../Assets/Header';
 import Menu from '../Assets/Menu';
 import Nav from '../Assets/Nav';
-import { AiOutlineEye, AiTwotoneEdit, AiOutlineDelete,AiOutlinePlus } from "react-icons/ai";
-import SearchInput from '../Assets/SearchInput';
+import DateTimePicker from '../Assets/DateTimePicker';
+import { useNavigate } from 'react-router-dom';
+import { AiOutlineArrowRight  } from 'react-icons/ai';
 
 const Insurance = () => {
-  const [items, setItems] = useState([]); 
-  const [filteredItems, setFilteredItems] = useState([]);
-  const [searchTerm, setSearchTerm] = useState(''); 
-  const [dataResult , setDataResult] = useState([
-    {
-      id:1,
-      documentNumber: "IS6707000001",
-      agentCode: "AA987654",
-      agentName: "สิทธิกร บุญเรืองขาว",
-      customer: "สมชาย เป็นชาย",
-      vehicleNumber: "1กด1111",
-    },
-    {
-      id:2,
-      documentNumber: "IS6707000002",
-      agentCode: "AA987654",
-      agentName: "สิทธิกร บุญเรืองขาว",
-      customer: "สมหญิง เป็นหญิง",
-      vehicleNumber: "2กด2222",
-    },
-    {
-      id:3,
-      documentNumber: "IS6707000003",
-      agentCode: "AA987654",
-      agentName: "สิทธิกร บุญเรืองขาว",
-      customer: "รักยิ้ม รักกัน",
-      vehicleNumber: "3กด3333",
-    },
-  ]);
-  const UserGet = useCallback(() => {
-    setItems(dataResult);
-    setFilteredItems(dataResult);
-  }, [dataResult]);
-  useEffect(() => {
-    UserGet();
-  }, [UserGet]);
-  const handleSearch = (e) => {
-    const value = e.target.value.toLowerCase();
-    console.log("handleSearch value :", value);
-    setSearchTerm(value);
-    if (items.length > 0) {
-      const filtered = items.filter(insurance =>
-        insurance.documentNumber.toLowerCase().includes(value) ||
-        insurance.agentCode.toLowerCase().includes(value) ||
-        insurance.agentName.toLowerCase().includes(value) ||
-        insurance.customer.toLowerCase().includes(value) ||
-        insurance.vehicleNumber.toLowerCase().includes(value)
-      );
-      
-      console.log('Filtered Items:', filtered); 
-      setFilteredItems(filtered);
-    } else {
-      console.log("No items to filter");
-    }
-  };
-  const IncludesUpdate = id => {
-  }
+    const navigate = useNavigate();
+    const [date, setDate] = useState(null);
 
-  const IncludesView = id => {
-  }
+    const handleDateChange = (isoDate) => {
+        console.log('Date sent to backend (ISO):', isoDate);
+        setDate(isoDate); 
+    };
 
-
-  const openDeleteModal = id => {
-  }
   return (
     <div className="flex h-screen" style={{ backgroundColor: '#F4F8FA' }}>
-      <div className="w-[248px] bg-gray-100">
-          <Menu />
-      </div>
-      <div className="flex-1 flex flex-col">
-        <Header />
-        <div className="py-4 pl-6 bg-white">
-          <Nav pageName="กรมธรรม์" />
-          <div className="mt-4 text-4xl ">กรมธรรม์</div>        
+        <div className="w-[248px] bg-gray-100">
+            <Menu />
         </div>
-        <div className="px-6 ">
-          <div className="flex w-full rounded-md my-4 gap-3">
-            <SearchInput
-              placeholder="ค้นหาด้วย เลขที่เอกสาร, เลขที่กรมธรรม์, ชื่อ-สกุลตัวแทน, ชื่อ-สกุลลูกค้า, ทะเบียนรถ, รหัสตัวแทน"
-              value={searchTerm}
-              onChange={handleSearch}
-            />
-            <button className="flex justify-center items-center space-x-2 border border-gray-300 px-3.5 rounded-md" style={{ backgroundColor: '#006F68' }}>
-              <AiOutlinePlus className="w-5 h-5 text-white" />
-              <div className="ml-2 " style={{color:'white'}}>สร้าง</div> 
-            </button>
+        <div className="flex-1 flex flex-col">
+            <Header />
+            <div className="py-4 pl-6 bg-white">
+                <Nav pageName="กรมธรรม์" />
+                <div className="mt-4 text-4xl ">กรมธรรม์</div>        
             </div>
-            <table className="table-auto w-full bg-white border border-gray-300">
-            <thead>
-              <tr className="bg-gray-100">
-                <th className="px-4 py-2 text-center">ลำดับ</th>
-                <th className="px-4 py-2 text-center">เลขที่เอกสาร</th>
-                <th className="px-4 py-2 text-center">รหัสตัวแทน</th>
-                <th className="px-4 py-2 text-center">ตัวแทน</th>
-                <th className="px-4 py-2 text-center">ลูกค้า</th>
-                <th className="px-4 py-2 text-center">ทะเบียนรถ</th>
-                <th className="px-4 py-2 text-center">เครื่องมือ</th>
-              </tr>
-            </thead>
-            <tbody>
-              {Array.isArray(filteredItems) && filteredItems.map((insurance, index) => (
-                <tr key={insurance._id} className="border-t">
-                  <td className="px-4 py-2 text-center">{index + 1}</td>
-                  <td className="px-4 py-2 text-center">{insurance.documentNumber}</td>
-                  <td className="px-4 py-2 text-center">{insurance.agentCode}</td>
-                  <td className="px-4 py-2 text-center">{insurance.agentName}</td>
-                  <td className="px-4 py-2 text-center">{insurance.customer}</td>
-                  <td className="px-4 py-2 text-center">{insurance.vehicleNumber}</td>
-                  <td className="px-4 py-2 text-center">
-                    <div className="flex justify-center items-center space-x-4">
-                      <button onClick={() => IncludesView(insurance._id)} className="text-black hover:text-gray-700">
-                        <AiOutlineEye className="w-5 h-5" />
-                      </button>
-                      <button onClick={() => IncludesUpdate(insurance._id)} className="text-black hover:text-gray-700">
-                        <AiTwotoneEdit className="w-5 h-5" />
-                      </button>
-                      <button onClick={() => openDeleteModal(insurance._id)} className="text-black hover:text-gray-700">
-                        <AiOutlineDelete className="w-5 h-5" />
-                      </button>
+            <div className="flex-1 flex flex-col max-w p-6 m-6 bg-white shadow-md rounded-md">
+                <h2 className="text-2xl font-semibold mb-4">
+                    กรมธรรม์ประกันภัยรถยนต์
+                </h2>
+                <form >
+                    <div className="flex flex-col gap-6 mb-6">
+                        <div className="font-semibold p-2 bg-[#006F68] bg-opacity-20">เอกสารผ่อนชำระ</div>
+                        <div className="flex row gap-4">
+                            <div className="flex-1">
+                                <label className="block text-sm font-medium text-gray-700">เลขที่เอกสาร</label>
+                                <input
+                                    type="text"
+                                    //   value={customer.customer_fname}
+                                    //   onChange={e => {
+                                    //     const value = e.target.value;
+                                    //     if (/^[ก-๙\s]*$/.test(value)) {
+                                    //       setCustomer({ ...customer, customer_fname: value });
+                                    //     }
+                                    //   }}
+                                    className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm"
+                                    required
+                                    //   disabled={disable}
+                                />
+                            </div>
+                            <div className="flex-1">
+                                <label className="block text-sm font-medium text-gray-700">สถานะชำระเบี้ยฯ</label>
+                                <input
+                                    type="text"
+                                    //   value={customer.customer_lname}
+                                    //   onChange={e => {
+                                    //     const value = e.target.value;
+                                    //     if (/^[ก-๙\s]*$/.test(value)) {
+                                    //       setCustomer({ ...customer, customer_lname: value });
+                                    //     }
+                                    //   }}
+                                    className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm"
+                                    required
+                                    //   disabled={disable}
+                                />
+                            </div>
+                        </div>
+                        <div className="flex row gap-4">
+                            <div className="flex-1">
+                                <label className="block text-sm font-medium text-gray-700">เลขที่กรมธรรม์</label>
+                                <input
+                                    type="text"
+                                    //   value={customer.customer_fname}
+                                    //   onChange={e => {
+                                    //     const value = e.target.value;
+                                    //     if (/^[ก-๙\s]*$/.test(value)) {
+                                    //       setCustomer({ ...customer, customer_fname: value });
+                                    //     }
+                                    //   }}
+                                    className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm"
+                                    required
+                                    //   disabled={disable}
+                                />
+                            </div>
+                            <div className="flex-1">
+                                <label className="block text-sm font-medium text-gray-700">สถานะกรมธรรม์</label>
+                                <input
+                                    type="text"
+                                    //   value={customer.customer_lname}
+                                    //   onChange={e => {
+                                    //     const value = e.target.value;
+                                    //     if (/^[ก-๙\s]*$/.test(value)) {
+                                    //       setCustomer({ ...customer, customer_lname: value });
+                                    //     }
+                                    //   }}
+                                    className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm"
+                                    required
+                                    //   disabled={disable}
+                                />
+                            </div>
+                        </div>
+                        <div className="flex row gap-4">
+                            <div className="flex-1">
+                                <label className="block text-sm font-medium text-gray-700">วันที่สร้างขอผ่อนชำระ</label>
+                                <DateTimePicker showTime={true} onDateChange={handleDateChange} />
+                                {date && <p>ข้อมูลที่ส่งไปยัง MongoDB: {date}</p>}
+                            </div>
+                            <div className="flex-1">
+                                <label className="block text-sm font-medium text-gray-700">วันที่ยืนยันขอผ่อนชำระ</label>
+                                <input
+                                    type="text"
+                                    //   value={customer.customer_lname}
+                                    //   onChange={e => {
+                                    //     const value = e.target.value;
+                                    //     if (/^[ก-๙\s]*$/.test(value)) {
+                                    //       setCustomer({ ...customer, customer_lname: value });
+                                    //     }
+                                    //   }}
+                                    className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm"
+                                    required
+                                    //   disabled={disable}
+                                />
+                            </div>
+                        </div>
+                        <div className="flex row gap-4">
+                            <div className="flex-1">
+                                <label className="block text-sm font-medium text-gray-700">ลูกค้า (ผู้ยืนยันผ่อนชำระ)</label>
+                                <input
+                                    type="text"
+                                    //   value={customer.customer_fname}
+                                    //   onChange={e => {
+                                    //     const value = e.target.value;
+                                    //     if (/^[ก-๙\s]*$/.test(value)) {
+                                    //       setCustomer({ ...customer, customer_fname: value });
+                                    //     }
+                                    //   }}
+                                    className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm"
+                                    required
+                                    //   disabled={disable}
+                                />
+                            </div>
+                            <div className="flex-1">
+                                <label className="block text-sm font-medium text-gray-700">เชื่อมต่อ LINE</label>
+                                {/* <input
+                                    type="text"
+                                        value={customer.customer_lname}
+                                        onChange={e => {
+                                        const value = e.target.value;
+                                        if (/^[ก-๙\s]*$/.test(value)) {
+                                            setCustomer({ ...customer, customer_lname: value });
+                                        }
+                                        }}
+                                    className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm"
+                                    required
+                                        disabled={disable}
+                                /> */}
+                            </div>
+                        </div>   
+                        <div className="flex row gap-4">
+                            <div className="flex-1">
+                                <label className="block text-sm font-medium text-gray-700">วันที่ยกเลิก</label>
+                                <input
+                                    type="text"
+                                    //   value={customer.customer_fname}
+                                    //   onChange={e => {
+                                    //     const value = e.target.value;
+                                    //     if (/^[ก-๙\s]*$/.test(value)) {
+                                    //       setCustomer({ ...customer, customer_fname: value });
+                                    //     }
+                                    //   }}
+                                    className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm"
+                                    required
+                                    //   disabled={disable}
+                                />
+                            </div>
+                            <div className="flex-1">
+                                <label className="block text-sm font-medium text-gray-700">เหตุผลที่ยกเลิก</label>
+                                <input
+                                    type="text"
+                                    //   value={customer.customer_lname}
+                                    //   onChange={e => {
+                                    //     const value = e.target.value;
+                                    //     if (/^[ก-๙\s]*$/.test(value)) {
+                                    //       setCustomer({ ...customer, customer_lname: value });
+                                    //     }
+                                    //   }}
+                                    className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm"
+                                    required
+                                    //   disabled={disable}
+                                />
+                            </div>
+                        </div>   
+                        <div className="flex row gap-4">
+                            <div className="flex-1">
+                                <label className="block text-sm font-medium text-gray-700">วันที่ถูกปฏิเสธ</label>
+                                <input
+                                    type="text"
+                                    //   value={customer.customer_fname}
+                                    //   onChange={e => {
+                                    //     const value = e.target.value;
+                                    //     if (/^[ก-๙\s]*$/.test(value)) {
+                                    //       setCustomer({ ...customer, customer_fname: value });
+                                    //     }
+                                    //   }}
+                                    className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm"
+                                    required
+                                    //   disabled={disable}
+                                />
+                            </div>
+                            <div className="flex-1">
+                                <label className="block text-sm font-medium text-gray-700">เหตุผลที่ถูกปฏิเสธ</label>
+                                <input
+                                    type="text"
+                                    //   value={customer.customer_lname}
+                                    //   onChange={e => {
+                                    //     const value = e.target.value;
+                                    //     if (/^[ก-๙\s]*$/.test(value)) {
+                                    //       setCustomer({ ...customer, customer_lname: value });
+                                    //     }
+                                    //   }}
+                                    className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm"
+                                    required
+                                    //   disabled={disable}
+                                />
+                            </div>
+                        </div> 
                     </div>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-          </div>
-      </div>
+                    <div>
+                        <div className="flex flex-col gap-6 mb-6">
+                            <div className="font-semibold p-2 bg-[#006F68] bg-opacity-20">ผู้เอาประกันภัย</div>
+                            <div className="flex-1">
+                                <label className="block text-sm font-medium text-gray-700">ผู้เอาประกันภัย</label>
+                                <input
+                                    type="text"
+                                    //   value={customer.customer_fname}
+                                    //   onChange={e => {
+                                    //     const value = e.target.value;
+                                    //     if (/^[ก-๙\s]*$/.test(value)) {
+                                    //       setCustomer({ ...customer, customer_fname: value });
+                                    //     }
+                                    //   }}
+                                    className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm"
+                                    required
+                                    //   disabled={disable}
+                                />
+                            </div>
+                            <div className="flex row gap-4">
+                                <div className="flex-1">
+                                    <label className="block text-sm font-medium text-gray-700">เบอร์มือถือ</label>
+                                    <input
+                                        type="text"
+                                        //   value={customer.customer_fname}
+                                        //   onChange={e => {
+                                        //     const value = e.target.value;
+                                        //     if (/^[ก-๙\s]*$/.test(value)) {
+                                        //       setCustomer({ ...customer, customer_fname: value });
+                                        //     }
+                                        //   }}
+                                        className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm"
+                                        required
+                                        //   disabled={disable}
+                                    />
+                                </div>
+                                <div className="flex-1">
+                                    <label className="block text-sm font-medium text-gray-700">บัตรประชาชน</label>
+                                    <input
+                                        type="text"
+                                        //   value={customer.customer_lname}
+                                        //   onChange={e => {
+                                        //     const value = e.target.value;
+                                        //     if (/^[ก-๙\s]*$/.test(value)) {
+                                        //       setCustomer({ ...customer, customer_lname: value });
+                                        //     }
+                                        //   }}
+                                        className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm"
+                                        required
+                                        //   disabled={disable}
+                                    />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <div className="flex flex-col gap-6 mb-6">
+                            <div className="font-semibold p-2 bg-[#006F68] bg-opacity-20">รถยนต์คันเอาประกันภัย</div>
+                            <div className="flex row gap-4">
+                                <div className="flex-1">
+                                    <label className="block text-sm font-medium text-gray-700">ยี่ห้อ</label>
+                                    <input
+                                        type="text"
+                                        //   value={customer.customer_fname}
+                                        //   onChange={e => {
+                                        //     const value = e.target.value;
+                                        //     if (/^[ก-๙\s]*$/.test(value)) {
+                                        //       setCustomer({ ...customer, customer_fname: value });
+                                        //     }
+                                        //   }}
+                                        className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm"
+                                        required
+                                        //   disabled={disable}
+                                    />
+                                </div>
+                                <div className="flex-1">
+                                    <label className="block text-sm font-medium text-gray-700">รุ่น</label>
+                                    <input
+                                        type="text"
+                                        //   value={customer.customer_lname}
+                                        //   onChange={e => {
+                                        //     const value = e.target.value;
+                                        //     if (/^[ก-๙\s]*$/.test(value)) {
+                                        //       setCustomer({ ...customer, customer_lname: value });
+                                        //     }
+                                        //   }}
+                                        className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm"
+                                        required
+                                        //   disabled={disable}
+                                    />
+                                </div>
+                            </div>
+                            <div className="flex row gap-4">
+                                <div className="flex-1">
+                                    <label className="block text-sm font-medium text-gray-700">ทะเบียนรถ</label>
+                                    <input
+                                        type="text"
+                                        //   value={customer.customer_fname}
+                                        //   onChange={e => {
+                                        //     const value = e.target.value;
+                                        //     if (/^[ก-๙\s]*$/.test(value)) {
+                                        //       setCustomer({ ...customer, customer_fname: value });
+                                        //     }
+                                        //   }}
+                                        className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm"
+                                        required
+                                        //   disabled={disable}
+                                    />
+                                </div>
+                                <div className="flex-1">
+                                    <label className="block text-sm font-medium text-gray-700">จังหวัด</label>
+                                    <input
+                                        type="text"
+                                        //   value={customer.customer_lname}
+                                        //   onChange={e => {
+                                        //     const value = e.target.value;
+                                        //     if (/^[ก-๙\s]*$/.test(value)) {
+                                        //       setCustomer({ ...customer, customer_lname: value });
+                                        //     }
+                                        //   }}
+                                        className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm"
+                                        required
+                                        //   disabled={disable}
+                                    />
+                                </div>
+                            </div>
+                            <div className="flex row gap-4">
+                                <div className="flex-1">
+                                    <label className="block text-sm font-medium text-gray-700">เลขตัวถัง </label>
+                                    <input
+                                        type="text"
+                                        //   value={customer.customer_fname}
+                                        //   onChange={e => {
+                                        //     const value = e.target.value;
+                                        //     if (/^[ก-๙\s]*$/.test(value)) {
+                                        //       setCustomer({ ...customer, customer_fname: value });
+                                        //     }
+                                        //   }}
+                                        className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm"
+                                        required
+                                        //   disabled={disable}
+                                    />
+                                </div>
+                                <div className="flex-1">
+                                    <label className="block text-sm font-medium text-gray-700">ประเภทกรมธรรม์</label>
+                                    <input
+                                        type="text"
+                                        //   value={customer.customer_lname}
+                                        //   onChange={e => {
+                                        //     const value = e.target.value;
+                                        //     if (/^[ก-๙\s]*$/.test(value)) {
+                                        //       setCustomer({ ...customer, customer_lname: value });
+                                        //     }
+                                        //   }}
+                                        className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm"
+                                        required
+                                        //   disabled={disable}
+                                    />
+                                </div>
+                            </div>
+                            <div className="flex row gap-4">
+                                <div className="flex-1">
+                                    <label className="block text-sm font-medium text-gray-700">ทุนเอาประกันภัย (บาท)</label>
+                                    <input
+                                        type="text"
+                                        //   value={customer.customer_fname}
+                                        //   onChange={e => {
+                                        //     const value = e.target.value;
+                                        //     if (/^[ก-๙\s]*$/.test(value)) {
+                                        //       setCustomer({ ...customer, customer_fname: value });
+                                        //     }
+                                        //   }}
+                                        className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm"
+                                        required
+                                        //   disabled={disable}
+                                    />
+                                </div>
+                                <div className="flex-1">
+                                    <label className="block text-sm font-medium text-gray-700">เบี้ยประกันภัย (บาท)</label>
+                                    <input
+                                        type="text"
+                                        //   value={customer.customer_lname}
+                                        //   onChange={e => {
+                                        //     const value = e.target.value;
+                                        //     if (/^[ก-๙\s]*$/.test(value)) {
+                                        //       setCustomer({ ...customer, customer_lname: value });
+                                        //     }
+                                        //   }}
+                                        className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm"
+                                        required
+                                        //   disabled={disable}
+                                    />
+                                </div>
+                            </div>
+                            <div className="flex row gap-4">
+                                <div className="flex-1">
+                                    <label className="block text-sm font-medium text-gray-700">ประสงค์ผ่อนชำระ (งวด)</label>
+                                    <input
+                                        type="text"
+                                        //   value={customer.customer_fname}
+                                        //   onChange={e => {
+                                        //     const value = e.target.value;
+                                        //     if (/^[ก-๙\s]*$/.test(value)) {
+                                        //       setCustomer({ ...customer, customer_fname: value });
+                                        //     }
+                                        //   }}
+                                        className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm"
+                                        required
+                                        //   disabled={disable}
+                                    />
+                                </div>
+                                <div className="flex-1">
+                                    <label className="block text-sm font-medium text-gray-700">ผ่อนชำระ งวดละ</label>
+                                    <input
+                                        type="text"
+                                        //   value={customer.customer_lname}
+                                        //   onChange={e => {
+                                        //     const value = e.target.value;
+                                        //     if (/^[ก-๙\s]*$/.test(value)) {
+                                        //       setCustomer({ ...customer, customer_lname: value });
+                                        //     }
+                                        //   }}
+                                        className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm"
+                                        required
+                                        //   disabled={disable}
+                                    />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <div className="flex flex-col gap-6 mb-6">
+                            <div className="font-semibold p-2 bg-[#006F68] bg-opacity-20">ข้อมูลตัวแทน</div>
+                            <div className="flex row gap-4">
+                                <div className="flex-1">
+                                    <label className="block text-sm font-medium text-gray-700">รหัสตัวแทน</label>
+                                    <input
+                                        type="text"
+                                        //   value={customer.customer_fname}
+                                        //   onChange={e => {
+                                        //     const value = e.target.value;
+                                        //     if (/^[ก-๙\s]*$/.test(value)) {
+                                        //       setCustomer({ ...customer, customer_fname: value });
+                                        //     }
+                                        //   }}
+                                        className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm"
+                                        required
+                                        //   disabled={disable}
+                                    />
+                                </div>
+                                <div className="flex-1">
+                                    <label className="block text-sm font-medium text-gray-700">นาย สมหมาย บุญมี</label>
+                                </div>
+                            </div>
+                            <div className="flex row gap-4">
+                                <div className="flex-1">
+                                    <label className="block text-sm font-medium text-gray-700">เบอร์ติดต่อ</label>
+                                    <input
+                                        type="text"
+                                        //   value={customer.customer_fname}
+                                        //   onChange={e => {
+                                        //     const value = e.target.value;
+                                        //     if (/^[ก-๙\s]*$/.test(value)) {
+                                        //       setCustomer({ ...customer, customer_fname: value });
+                                        //     }
+                                        //   }}
+                                        className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm"
+                                        required
+                                        //   disabled={disable}
+                                    />
+                                </div>
+                                <div className="flex-1">
+                                    <label className="block text-sm font-medium text-gray-700">เลขที่ใบอนุญาต</label>
+                                    <input
+                                        type="text"
+                                        //   value={customer.customer_lname}
+                                        //   onChange={e => {
+                                        //     const value = e.target.value;
+                                        //     if (/^[ก-๙\s]*$/.test(value)) {
+                                        //       setCustomer({ ...customer, customer_lname: value });
+                                        //     }
+                                        //   }}
+                                        className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm"
+                                        required
+                                        //   disabled={disable}
+                                    />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div className="flex row gap-2">
+                        <button
+                        onClick={() => navigate('/insurance')}
+                        className="w-full border-2 text-black py-2 px-4 rounded-md">
+                        ยกเลิก
+                        </button>
+                        <button
+                        className="w-full text-white py-2 px-4 rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                        style={{ backgroundColor: '#006F68'}} 
+                        >
+                            <AiOutlineArrowRight  className="inline-block mr-1" />
+                            ถัดไป
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
     </div>
-
     
   )
-
-  
 }
-export default Insurance;
 
+export default Insurance;

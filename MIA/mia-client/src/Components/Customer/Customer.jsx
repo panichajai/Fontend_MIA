@@ -6,6 +6,7 @@ import Menu from '../Assets/Menu';
 import Nav from '../Assets/Nav';
 import Popup from '../Assets/Popup';
 import Dropdown from '../Assets/Dropdown';
+import Tab from '../Assets/Tab';
 import { DatePicker } from 'antd';
 import 'antd/dist/reset.css'; 
 import moment from 'moment'; 
@@ -18,6 +19,14 @@ const Customer = ({ mode }) => {
   const { id } = useParams();
   const api = API_BASE_URL;
   const navigate = useNavigate();
+  const [activeTab, setActiveTab] = useState('tab1');
+  const handleTabClick = (tabId) => {
+    setActiveTab(tabId);
+  };
+  const tabs = [
+    { id: 'tab1', label: 'ข้อมูลส่วนตัว', link: ' ' },
+    { id: 'tab2', label: 'กรมธรรม์', link: ' ' },
+  ];
 
   const [customer, setCustomer] = useState({
     customer_title: '',
@@ -85,7 +94,7 @@ const Customer = ({ mode }) => {
           setErrorMessage('Error fetching customer data');
         });
     }
-  }, [id, mode]);
+  }, [id, mode, api]);
 
   const handleDateOfBirthChange = (date, dateString) => {
     const thaiDate = dateString ? convertCEToThai(dateString) : ''; 
@@ -189,8 +198,19 @@ const Customer = ({ mode }) => {
       <div className="flex-1 flex flex-col">
         <Header />
             <div className="py-4 pl-6 bg-white">
-            <Nav pageName="ลูกค้า" />
-            <div className="mt-4 text-4xl ">ลูกค้า</div>        
+              <Nav pageName="ลูกค้า" />
+              <div className="mt-4 text-4xl ">ลูกค้า</div>   
+              <div className="flex border-b gap-8 mb-2 mt-4">
+              {tabs.map((tab) => (
+                <Tab
+                  key={tab.id}
+                  label={tab.label}
+                  isActive={activeTab === tab.id}
+                  onClick={() => handleTabClick(tab.id)}
+                  link={tab.link}
+                />
+              ))}
+            </div>     
             </div>
         <div className="flex-1 flex flex-col">
           <div className="max-w p-6 m-6 bg-white shadow-md rounded-md">
