@@ -61,14 +61,17 @@ const PDPASettingList = () => {
     navigate(`/pdpasetting/create`); 
   }
 
-  const pdpaUpdate = id => {
+  const PDPASettingUpdate = id => {
+    navigate(`/pdpasetting/update/${id}`); 
   }
 
-  const pdpaView = id => {
+  const PDPASettingView = id => {
+    navigate(`/pdpasetting/view/${id}`); 
   }
 
   const openDeleteModal = id => {
   }
+  
   return (
     <div className="flex h-screen" style={{ backgroundColor: '#F4F8FA' }}>
       <div className="w-[248px] bg-gray-100">
@@ -95,7 +98,6 @@ const PDPASettingList = () => {
             <table className="table-auto w-full bg-white border border-gray-300">
               <thead>
                 <tr className="bg-gray-100">
-                <th className="px-4 py-2 text-center">ลำดับ</th>
                   <th className="px-4 py-2 text-center">PDPA id</th>
                   <th className="px-4 py-2 text-center">วันที่สร้าง</th>
                   <th className="px-4 py-2 text-center">หัวข้อ</th>
@@ -106,17 +108,16 @@ const PDPASettingList = () => {
               <tbody>
               {Array.isArray(filteredItems) && filteredItems.map((pdpa, index) => (
                 <tr key={pdpa._id} className="border-t">
-                  <td className="px-4 py-2 text-center">{index + 1}</td>
-                  <td className="px-4 py-2 text-center">{pdpa.id}</td>
+                  <td className="px-4 py-2 text-center">{pdpa._id}</td>
                   <td className="px-4 py-2 text-center">{pdpa.creationDate}</td>
                   <td className="px-4 py-2 text-center">{pdpa.topic}</td>
                   <td className="px-4 py-2 text-center">{pdpa.version}</td>
                   <td className="px-4 py-2 text-center">
                     <div className="flex justify-center items-center space-x-4">
-                      <button onClick={() => pdpaView(pdpa._id)} className="text-black hover:text-gray-700">
+                      <button onClick={() => PDPASettingView(pdpa._id)} className="text-black hover:text-gray-700">
                         <AiOutlineEye className="w-5 h-5" />
                       </button>
-                      <button onClick={() => pdpaUpdate(pdpa._id)} className="text-black hover:text-gray-700">
+                      <button onClick={() => PDPASettingUpdate(pdpa._id)} className="text-black hover:text-gray-700">
                         <AiTwotoneEdit className="w-5 h-5" />
                       </button>
                       <button onClick={() => openDeleteModal(pdpa._id)} className="text-black hover:text-gray-700">

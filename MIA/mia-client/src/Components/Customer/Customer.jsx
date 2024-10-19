@@ -417,65 +417,65 @@ const Customer = ({ mode }) => {
                   </div>
                 </div>
               </div>
-            </form>
-            {mode !== 'view' && (
-              <div className="flex row gap-2">
+              {mode !== 'view' && (
+                <div className="flex row gap-2">
+                  <button
+                    onClick={() => navigate('/customer')}
+                    className="w-full border-2 text-black py-2 px-4 rounded-md">
+                    ยกเลิก
+                  </button>
+
+                  <button
+                    onClick={openModal}
+                    className="w-full text-white py-2 px-4 rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                    style={{ backgroundColor: '#006F68'}} 
+                    >
+                    {mode === 'create' ? (
+                      <>
+                        <AiOutlinePlus className="inline-block mr-1" />
+                        สร้างข้อมูลลูกค้า
+                      </>
+                      ) : (
+                      <>
+                        <AiOutlineSave className="inline-block mr-1" />
+                        บันทึกการแก้ไข
+                      </>
+                    )}
+                  </button>
+                </div>
+              )}
+              {mode === 'view' && (
                 <button
                   onClick={() => navigate('/customer')}
                   className="w-full border-2 text-black py-2 px-4 rounded-md">
                   ย้อนกลับ
                 </button>
-
-                <button
-                  onClick={openModal}
-                  className="w-full text-white py-2 px-4 rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500"
-                  style={{ backgroundColor: '#006F68'}} 
-                  >
-                  {mode === 'create' ? (
-                    <>
-                      <AiOutlinePlus className="inline-block mr-1" />
-                      สร้างข้อมูลลูกค้า
-                    </>
-                    ) : (
-                    <>
-                      <AiOutlineSave className="inline-block mr-1" />
-                      ยืนยันการแก้ไข
-                    </>
-                  )}
-                </button>
-              </div>
-            )}
-            {mode === 'view' && (
-              <button
-                onClick={() => navigate('/customer')}
-                className="w-full border-2 text-black py-2 px-4 rounded-md">
-                ย้อนกลับ
-              </button>
-            )}
-            <Popup
-              isOpen={modalIsOpen}
-              onRequestClose={closeModal}
-              title={
-                <>
-                  คุณต้องการ <span 
-                    style={{ fontWeight: 'bold' 
-                    }}>
-                    {mode === 'create' ? 'สร้างข้อมูลลูกค้า' : 'บันทึกการแก้ไข'}
-                  </span> ใช่หรือไม่?
-                </>
-              }
-              confirmLabel={mode === 'create' ? 'สร้างข้อมูลลูกค้า' : 'บันทึกการแก้ไข'}
-              cancelLabel="ยกเลิก"
-              onConfirm={handleConfirm}
-              icon={mode === 'create' ? 
-              <AiOutlineCheckCircle style={{ color: '#006F68' }} /> 
-              : 
-              <AiOutlineWarning style={{ color: '#FFCC00' }} />}
-              confirmButtonStyle={{
-                backgroundColor: mode === 'create' ? '#006F68' : '#FAAD14', 
-                color: 'white'
-              }}
-            />
+              )}
+              <Popup
+                isOpen={modalIsOpen}
+                onRequestClose={closeModal}
+                title={
+                  <>
+                    คุณต้องการ <span 
+                      style={{ fontWeight: 'bold' 
+                      }}>
+                      {mode === 'create' ? 'สร้างข้อมูลลูกค้า' : 'บันทึกการแก้ไข'}
+                    </span> ใช่หรือไม่?
+                  </>
+                }
+                confirmLabel={mode === 'create' ? 'สร้างข้อมูลลูกค้า' : 'บันทึกการแก้ไข'}
+                cancelLabel="ยกเลิก"
+                onConfirm={handleConfirm}
+                icon={mode === 'create' ? 
+                <AiOutlineCheckCircle style={{ color: '#006F68' }} /> 
+                : 
+                <AiOutlineWarning style={{ color: '#FFCC00' }} />}
+                confirmButtonStyle={{
+                  backgroundColor: mode === 'create' ? '#006F68' : '#FAAD14', 
+                  color: 'white'
+                }}
+              />
+            </form>
           </div>
         </div>
       </div>

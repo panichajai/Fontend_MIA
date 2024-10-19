@@ -51,6 +51,7 @@ const Insurance = () => {
       vehicleNumber: "3กด3333",
     },
   ]);
+
   const UserGet = useCallback(() => {
     setItems(dataResult);
     setFilteredItems(dataResult);
@@ -58,6 +59,7 @@ const Insurance = () => {
   useEffect(() => {
     UserGet();
   }, [UserGet]);
+
   const handleSearch = (e) => {
     const value = e.target.value.toLowerCase();
     console.log("handleSearch value :", value);
@@ -77,10 +79,13 @@ const Insurance = () => {
       console.log("No items to filter");
     }
   };
+
   const InsuranceUpdate = id => {
+    navigate(`/insurance/update/${id}`); 
   }
 
   const InsuranceView = id => {
+    navigate(`/insurance/view/${id}`); 
   }
 
   const InsuranceCreate = () => {

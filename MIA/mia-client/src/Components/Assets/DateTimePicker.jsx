@@ -2,8 +2,10 @@ import React, { useState } from 'react';
 import { DatePicker } from 'antd';
 import dayjs from 'dayjs';
 import 'dayjs/locale/th'; 
+import locale from 'antd/es/date-picker/locale/th_TH';
 
-const DateTimePicker = ({ showTime = false, onDateChange }) => {
+
+const DateTimePicker = ({ showTime = false, onDateChange , disabled }) => {
     const [selectedDate, setSelectedDate] = useState(null);
   
     const formatToBuddhistYear = (date) => {
@@ -23,9 +25,13 @@ const DateTimePicker = ({ showTime = false, onDateChange }) => {
       <DatePicker
         showTime={showTime ? { format: 'HH:mm' } : false} 
         format={(value) => formatToBuddhistYear(value)} 
+        locale={locale}
         onChange={handleChange} 
         value={selectedDate ? dayjs(selectedDate) : null}
-        locale={{ locale: 'th' }} 
+        disabled={disabled}
+        style={{ 
+            width: '100%'
+        }}
       />
     );
   };

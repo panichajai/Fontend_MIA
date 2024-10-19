@@ -1,12 +1,18 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Header from '../Assets/Header';
 import Menu from '../Assets/Menu';
 import Nav from '../Assets/Nav';
 import { useNavigate } from 'react-router-dom';
-import { AiOutlinePlus } from 'react-icons/ai';
+import { AiOutlinePlus, AiOutlineSave  } from 'react-icons/ai';
 
-const CarBrandSetting = () => {
+const CarBrandSetting = ({ mode }) => {
     const navigate = useNavigate();
+    const disable = mode === "view" ? true : false;
+
+    const [insurance, setInsurance] = useState({
+        insurance_insuretype: '',
+        insurance_installmentpayment: ''
+    });
 
   return (
     <div className="flex h-screen" style={{ backgroundColor: '#F4F8FA' }}>
@@ -24,54 +30,80 @@ const CarBrandSetting = () => {
                         สร้างรายละเอียดยี่ห้อรถ
                     </h2>
                     <form >
-                        <div className="flex flex-col gap-6 mb-6">
+                        <div className="flex flex-col gap-6 mb-12 rounded-md">
                             <div className="flex-1">
                                 <label className="block text-sm font-medium text-gray-700">Brand (EN)</label>
                                 <input
                                     type="text"
-                                    //   value={customer.customer_fname}
-                                    //   onChange={e => {
-                                    //     const value = e.target.value;
-                                    //     if (/^[ก-๙\s]*$/.test(value)) {
-                                    //       setCustomer({ ...customer, customer_fname: value });
-                                    //     }
-                                    //   }}
+                                    value={insurance.insurance_policystatus}
+                                    onChange={e => {
+                                      const value = e.target.value;
+                                      if (/^[ก-๙\s]*$/.test(value)) {
+                                          setInsurance({ ...insurance, insurance_policystatus: value });
+                                      }
+                                    }}
                                     className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm"
                                     required
-                                    //   disabled={disable}
+                                    disabled={disable}
+                                    style={{
+                                        cursor: disable ? 'not-allowed' : 'text',
+                                        backgroundColor: disable ? '#f9fafb' : 'white',
+                                    }}
                                 />
                             </div>
                             <div className="flex-1">
                                 <label className="block text-sm font-medium text-gray-700">Model (EN)</label>
                                 <input
                                     type="text"
-                                    //   value={customer.customer_lname}
-                                    //   onChange={e => {
-                                    //     const value = e.target.value;
-                                    //     if (/^[ก-๙\s]*$/.test(value)) {
-                                    //       setCustomer({ ...customer, customer_lname: value });
-                                    //     }
-                                    //   }}
+                                    value={insurance.insurance_policystatus}
+                                    onChange={e => {
+                                      const value = e.target.value;
+                                      if (/^[ก-๙\s]*$/.test(value)) {
+                                          setInsurance({ ...insurance, insurance_policystatus: value });
+                                      }
+                                    }}
                                     className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm"
                                     required
-                                    //   disabled={disable}
+                                    disabled={disable}
+                                    style={{
+                                        cursor: disable ? 'not-allowed' : 'text',
+                                        backgroundColor: disable ? '#f9fafb' : 'white',
+                                    }}
                                 />
                             </div>
                         </div>
-                        <div className="flex row gap-2">
+                        {mode !== 'view' && (
+                            <div className="flex row gap-2">
+                                <button
+                                    onClick={() => navigate('/carbrandsetting')}
+                                    className="w-full border-2 text-black py-2 px-4 rounded-md">
+                                    ยกเลิก
+                                </button>
+                                <button
+                                    className="w-full text-white py-2 px-4 rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                                    style={{ backgroundColor: '#006F68'}} 
+                                    >
+                                    {mode === 'create' ? (
+                                    <>
+                                        <AiOutlinePlus  className="inline-block mr-1" />
+                                        สร้างรายละเอียดยี่ห้อรถ
+                                    </>
+                                    ) : (
+                                    <>
+                                        <AiOutlineSave className="inline-block mr-1" />
+                                        บันทึกการแก้ไข
+                                    </>
+                                    )}
+                                </button>
+                            </div>
+                        )}
+                        {mode === 'view' && (
                             <button
-                            onClick={() => navigate('/carbrandsetting')}
-                            className="w-full border-2 text-black py-2 px-4 rounded-md">
-                            ยกเลิก
+                                onClick={() => navigate('/carbrandsetting')}
+                                className="w-full border-2 text-black py-2 px-4 rounded-md">
+                                ย้อนกลับ
                             </button>
-                            <button
-                            className="w-full text-white py-2 px-4 rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500"
-                            style={{ backgroundColor: '#006F68'}} 
-                            >
-                                <AiOutlinePlus className="inline-block mr-1" />
-                                สร้างรายละเอียดยี่ห้อรถ
-                            </button>
-                        </div>
+                        )}
                     </form>
                 </div>
         </div>

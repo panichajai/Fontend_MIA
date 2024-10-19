@@ -49,9 +49,11 @@ const StatusInsuranceSettingList = () => {
   }
 
   const StatusInsuranceSettingUpdate = id => {
+    navigate(`/statusinsurancesetting/update/${id}`); 
   }
 
   const StatusInsuranceSettingView = id => {
+    navigate(`/statusinsurancesetting/view/${id}`); 
   }
 
 

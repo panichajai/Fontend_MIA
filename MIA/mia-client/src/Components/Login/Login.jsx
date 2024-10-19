@@ -68,7 +68,7 @@ const Login = () => {
             <div>Customer <span>มิตรแท้ประกันภัย</span></div>
           </div>
           <Box display="flex" flexDirection="column" gap={'24px'} marginTop={'32px'}>
-            <div className="">
+            <div>
                 <label htmlFor="email"  style={{ color: '#006F68' }} className="block text-sm font-medium">
                     อีเมล
                 </label>
@@ -81,7 +81,7 @@ const Login = () => {
                     required 
                 />
             </div>
-            <div className="">
+            <div>
               <PasswordField 
                 label="รหัสผ่าน"               
                 placeholder="กรอกรหัสผ่าน"  

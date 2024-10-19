@@ -1,6 +1,8 @@
 import React from 'react';
 
-const Dropdown = ({ value, onChange, label, options, placeholder, disabled }) => {
+const Dropdown = ({ value, onChange, label, options, placeholder, mode }) => {
+  const Disabled = mode === 'view';
+
   return (
     <div className="mb-4">
 
@@ -11,12 +13,13 @@ const Dropdown = ({ value, onChange, label, options, placeholder, disabled }) =>
           onChange={onChange}
           className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm appearance-none focus:ring-0 focus:border-gray-300"
           required
-          disabled={disabled}
-          style={{ cursor: disabled ? 'not-allowed' : 'pointer' }}
-        >
-          <option value="" disabled style={{ color: '#A0A0A0' }}>
-            {placeholder}
-          </option>
+          disabled={Disabled}
+          style={{ cursor: Disabled ? 'not-allowed' : 'pointer',
+            backgroundColor: Disabled ? '#F5F5F5' : 'white',
+            color: Disabled ? '#6B7280' : 'inherit'
+           }}
+          >
+          <option value="" disabled hidden>{placeholder}</option>
           {options.map((option, index) => (
             <option key={index} value={option} className="hover:bg-green-600 hover:text-white">
               {option}

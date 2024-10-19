@@ -1,12 +1,18 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Header from '../Assets/Header';
 import Menu from '../Assets/Menu';
 import Nav from '../Assets/Nav';
 import { useNavigate } from 'react-router-dom';
-import { AiOutlinePlus } from 'react-icons/ai';
+import { AiOutlinePlus, AiOutlineSave  } from 'react-icons/ai';
 
-const PDPASetting = () => {
+const PDPASetting = ({ mode }) => {
     const navigate = useNavigate();
+
+    const disable = mode === "view" ? true : false;
+
+    const [pdpasetting, setPDPASetting] = useState({
+        pdpasetting_name: ''
+    });
 
   return (
     <div className="flex h-screen" style={{ backgroundColor: '#F4F8FA' }}>
@@ -29,81 +35,115 @@ const PDPASetting = () => {
                                 <label className="block text-sm font-medium text-gray-700">Id</label>
                                 <input
                                     type="text"
-                                    //   value={customer.customer_fname}
-                                    //   onChange={e => {
-                                    //     const value = e.target.value;
-                                    //     if (/^[ก-๙\s]*$/.test(value)) {
-                                    //       setCustomer({ ...customer, customer_fname: value });
-                                    //     }
-                                    //   }}
+                                    value={pdpasetting.insurance_policystatus}
+                                    onChange={e => {
+                                      const value = e.target.value;
+                                      if (/^[ก-๙\s]*$/.test(value)) {
+                                        setPDPASetting({ ...pdpasetting, insurance_policystatus: value });
+                                      }
+                                    }}
                                     className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm"
                                     required
-                                    //   disabled={disable}
+                                    disabled={disable}
+                                    style={{
+                                        cursor: disable ? 'not-allowed' : 'text',
+                                        backgroundColor: disable ? '#f9fafb' : 'white',
+                                    }}
                                 />
                             </div>
                             <div className="flex-1">
                                 <label className="block text-sm font-medium text-gray-700">หัวข้อ</label>
                                 <input
                                     type="text"
-                                    //   value={customer.customer_lname}
-                                    //   onChange={e => {
-                                    //     const value = e.target.value;
-                                    //     if (/^[ก-๙\s]*$/.test(value)) {
-                                    //       setCustomer({ ...customer, customer_lname: value });
-                                    //     }
-                                    //   }}
+                                    value={pdpasetting.insurance_policystatus}
+                                    onChange={e => {
+                                      const value = e.target.value;
+                                      if (/^[ก-๙\s]*$/.test(value)) {
+                                        setPDPASetting({ ...pdpasetting, insurance_policystatus: value });
+                                      }
+                                    }}
                                     className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm"
                                     required
-                                    //   disabled={disable}
+                                    disabled={disable}
+                                    style={{
+                                        cursor: disable ? 'not-allowed' : 'text',
+                                        backgroundColor: disable ? '#f9fafb' : 'white',
+                                    }}
                                 />
                             </div>    
                             <div className="flex-1">
                                 <label className="block text-sm font-medium text-gray-700">เวอร์ชัน</label>
                                 <input
                                     type="text"
-                                    //   value={customer.customer_fname}
-                                    //   onChange={e => {
-                                    //     const value = e.target.value;
-                                    //     if (/^[ก-๙\s]*$/.test(value)) {
-                                    //       setCustomer({ ...customer, customer_fname: value });
-                                    //     }
-                                    //   }}
+                                    value={pdpasetting.insurance_policystatus}
+                                    onChange={e => {
+                                      const value = e.target.value;
+                                      if (/^[ก-๙\s]*$/.test(value)) {
+                                        setPDPASetting({ ...pdpasetting, insurance_policystatus: value });
+                                      }
+                                    }}
                                     className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm"
                                     required
-                                    //   disabled={disable}
+                                    disabled={disable}
+                                    style={{
+                                        cursor: disable ? 'not-allowed' : 'text',
+                                        backgroundColor: disable ? '#f9fafb' : 'white',
+                                    }}
                                 />
                             </div>
                             <div className="flex-1">
                                 <label className="block text-sm font-medium text-gray-700">รายละเอียด</label>
                                 <input
                                     type="text"
-                                    //   value={customer.customer_fname}
-                                    //   onChange={e => {
-                                    //     const value = e.target.value;
-                                    //     if (/^[ก-๙\s]*$/.test(value)) {
-                                    //       setCustomer({ ...customer, customer_fname: value });
-                                    //     }
-                                    //   }}
+                                    value={pdpasetting.insurance_policystatus}
+                                    onChange={e => {
+                                      const value = e.target.value;
+                                      if (/^[ก-๙\s]*$/.test(value)) {
+                                        setPDPASetting({ ...pdpasetting, insurance_policystatus: value });
+                                      }
+                                    }}
                                     className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm"
                                     required
-                                    //   disabled={disable}
+                                    disabled={disable}
+                                    style={{
+                                        cursor: disable ? 'not-allowed' : 'text',
+                                        backgroundColor: disable ? '#f9fafb' : 'white',
+                                    }}
                                 />
                             </div>
                         </div>
-                        <div className="flex row gap-2">
+                        {mode !== 'view' && (
+                            <div className="flex row gap-2">
+                                <button
+                                    onClick={() => navigate('/pdpasetting')}
+                                    className="w-full border-2 text-black py-2 px-4 rounded-md">
+                                    ยกเลิก
+                                </button>
+                                <button
+                                    className="w-full text-white py-2 px-4 rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                                    style={{ backgroundColor: '#006F68'}} 
+                                    >
+                                    {mode === 'create' ? (
+                                    <>
+                                        <AiOutlinePlus  className="inline-block mr-1" />
+                                        สร้าง PDPA
+                                    </>
+                                    ) : (
+                                    <>
+                                        <AiOutlineSave className="inline-block mr-1" />
+                                        บันทึกการแก้ไข
+                                    </>
+                                    )}
+                                </button>
+                            </div>
+                        )}
+                        {mode === 'view' && (
                             <button
-                            onClick={() => navigate('/pdpasetting')}
-                            className="w-full border-2 text-black py-2 px-4 rounded-md">
-                            ยกเลิก
+                                onClick={() => navigate('/pdpasetting')}
+                                className="w-full border-2 text-black py-2 px-4 rounded-md">
+                                ย้อนกลับ
                             </button>
-                            <button
-                            className="w-full text-white py-2 px-4 rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500"
-                            style={{ backgroundColor: '#006F68'}} 
-                            >
-                                <AiOutlinePlus className="inline-block mr-1" />
-                                สร้าง PDPA
-                            </button>
-                        </div>
+                        )}
                     </form>
                 </div>
         </div>

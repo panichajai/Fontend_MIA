@@ -56,9 +56,11 @@ const ProjectSettingList = () => {
   }
 
   const ProjectSettingUpdate = id => {
+    navigate(`/projectsetting/update/${id}`); 
   }
 
   const ProjectSettingView = id => {
+    navigate(`/projectsetting/view/${id}`); 
   }
 
   const openDeleteModal = id => {

@@ -48,9 +48,11 @@ const InstallmentSettingList = () => {
   }
 
   const InstallmentSettingUpdate = id => {
+    navigate(`/installmentsetting/update/${id}`); 
   }
 
   const InstallmentSettingView = id => {
+    navigate(`/installmentsetting/view/${id}`); 
   }
 
   const openDeleteModal = id => {

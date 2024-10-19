@@ -67,6 +67,7 @@ const AdminUserList = () => {
   }
 
   const AdminUserView = id => {
+    navigate(`/adminuser/view/${id}`); 
   }
 
 
@@ -98,7 +99,6 @@ const AdminUserList = () => {
           <table className="table-auto w-full bg-white border border-gray-300">
             <thead>
               <tr className="bg-gray-100">
-                <th className="px-4 py-2 text-center">ลำดับ</th>
                 <th className="px-4 py-2 text-center">ชื่อ นามสกุล</th>
                 <th className="px-4 py-2 text-center">ตำแหน่ง</th>
                 <th className="px-4 py-2 text-center">อีเมล</th>
@@ -108,9 +108,8 @@ const AdminUserList = () => {
               </tr>
             </thead>
             <tbody>
-              {Array.isArray(filteredItems) && filteredItems.map((admin, index) => (
+              {Array.isArray(filteredItems) && filteredItems.map((admin) => (
                 <tr key={admin._id} className="border-t">
-                  <td className="px-4 py-2 text-center">{index + 1}</td>
                   <td className="px-4 py-2 text-center">{admin.name}</td>
                   <td className="px-4 py-2 text-center">{admin.position}</td>
                   <td className="px-4 py-2 text-center">{admin.email}</td>

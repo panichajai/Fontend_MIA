@@ -1,12 +1,17 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Header from '../Assets/Header';
 import Menu from '../Assets/Menu';
 import Nav from '../Assets/Nav';
 import { useNavigate } from 'react-router-dom';
 import { AiOutlineEye, AiTwotoneEdit, AiOutlineDelete, AiOutlinePlus  } from "react-icons/ai";
 
-const ProjectSetting = () => {
+const ProjectSetting = ({ mode }) => {
     const navigate = useNavigate();
+    const disable = mode === "view" ? true : false;
+
+    const [projectsetting, setProjectSetting] = useState({
+        projectsetting_name: ''
+    });
 
   return (
     <div className="flex h-screen" style={{ backgroundColor: '#F4F8FA' }}>
@@ -29,98 +34,134 @@ const ProjectSetting = () => {
                                 <label className="block text-sm font-medium text-gray-700">Id</label>
                                 <input
                                     type="text"
-                                    //   value={customer.customer_fname}
-                                    //   onChange={e => {
-                                    //     const value = e.target.value;
-                                    //     if (/^[ก-๙\s]*$/.test(value)) {
-                                    //       setCustomer({ ...customer, customer_fname: value });
-                                    //     }
-                                    //   }}
-                                    className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm"
-                                    required
-                                    //   disabled={disable}
+                                        value={projectsetting.insurance_policystatus}
+                                        onChange={e => {
+                                          const value = e.target.value;
+                                          if (/^[ก-๙\s]*$/.test(value)) {
+                                            setProjectSetting({ ...projectsetting, insurance_policystatus: value });
+                                          }
+                                        }}
+                                        className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm"
+                                        required
+                                        disabled={disable}
+                                        style={{
+                                            cursor: disable ? 'not-allowed' : 'text',
+                                            backgroundColor: disable ? '#f9fafb' : 'white',
+                                        }}
                                 />
                             </div>
                             <div className="flex-1">
                                 <label className="block text-sm font-medium text-gray-700">หัวข้อโครงการ</label>
                                 <input
                                     type="text"
-                                    //   value={customer.customer_lname}
-                                    //   onChange={e => {
-                                    //     const value = e.target.value;
-                                    //     if (/^[ก-๙\s]*$/.test(value)) {
-                                    //       setCustomer({ ...customer, customer_lname: value });
-                                    //     }
-                                    //   }}
+                                    value={projectsetting.insurance_policystatus}
+                                    onChange={e => {
+                                      const value = e.target.value;
+                                      if (/^[ก-๙\s]*$/.test(value)) {
+                                        setProjectSetting({ ...projectsetting, insurance_policystatus: value });
+                                      }
+                                    }}
                                     className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm"
                                     required
-                                    //   disabled={disable}
+                                    disabled={disable}
+                                    style={{
+                                        cursor: disable ? 'not-allowed' : 'text',
+                                        backgroundColor: disable ? '#f9fafb' : 'white',
+                                    }}
                                 />
                             </div>    
                             <div className="flex-1">
                                 <label className="block text-sm font-medium text-gray-700">เวอร์ชัน</label>
                                 <input
                                     type="text"
-                                    //   value={customer.customer_fname}
-                                    //   onChange={e => {
-                                    //     const value = e.target.value;
-                                    //     if (/^[ก-๙\s]*$/.test(value)) {
-                                    //       setCustomer({ ...customer, customer_fname: value });
-                                    //     }
-                                    //   }}
+                                    value={projectsetting.insurance_policystatus}
+                                    onChange={e => {
+                                      const value = e.target.value;
+                                      if (/^[ก-๙\s]*$/.test(value)) {
+                                        setProjectSetting({ ...projectsetting, insurance_policystatus: value });
+                                      }
+                                    }}
                                     className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm"
                                     required
-                                    //   disabled={disable}
+                                    disabled={disable}
+                                    style={{
+                                        cursor: disable ? 'not-allowed' : 'text',
+                                        backgroundColor: disable ? '#f9fafb' : 'white',
+                                    }}
                                 />
                             </div>
                             <div className="flex-1">
                                 <label className="block text-sm font-medium text-gray-700">รายละเอียดโครงการ</label>
                                 <input
                                     type="text"
-                                    //   value={customer.customer_lname}
-                                    //   onChange={e => {
-                                    //     const value = e.target.value;
-                                    //     if (/^[ก-๙\s]*$/.test(value)) {
-                                    //       setCustomer({ ...customer, customer_lname: value });
-                                    //     }
-                                    //   }}
+                                    value={projectsetting.insurance_policystatus}
+                                    onChange={e => {
+                                      const value = e.target.value;
+                                      if (/^[ก-๙\s]*$/.test(value)) {
+                                        setProjectSetting({ ...projectsetting, insurance_policystatus: value });
+                                      }
+                                    }}
                                     className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm"
                                     required
-                                    //   disabled={disable}
+                                    disabled={disable}
+                                    style={{
+                                        cursor: disable ? 'not-allowed' : 'text',
+                                        backgroundColor: disable ? '#f9fafb' : 'white',
+                                    }}
                                 />
                             </div> 
                             <div className="flex-1">
                                 <label className="block text-sm font-medium text-gray-700">หัวข้อเงื่อนไขการผ่อนชำระ</label>
                                 <input
                                     type="text"
-                                    //   value={customer.customer_fname}
-                                    //   onChange={e => {
-                                    //     const value = e.target.value;
-                                    //     if (/^[ก-๙\s]*$/.test(value)) {
-                                    //       setCustomer({ ...customer, customer_fname: value });
-                                    //     }
-                                    //   }}
+                                    value={projectsetting.insurance_policystatus}
+                                    onChange={e => {
+                                      const value = e.target.value;
+                                      if (/^[ก-๙\s]*$/.test(value)) {
+                                        setProjectSetting({ ...projectsetting, insurance_policystatus: value });
+                                      }
+                                    }}
                                     className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm"
                                     required
-                                    //   disabled={disable}
+                                    disabled={disable}
+                                    style={{
+                                        cursor: disable ? 'not-allowed' : 'text',
+                                        backgroundColor: disable ? '#f9fafb' : 'white',
+                                    }}
                                 />
                             </div>
                             <div className="flex-1">
                                 <label className="block text-sm font-medium text-gray-700">เงื่อนไขการผ่อนชำระ</label>
                                 <input
                                     type="text"
-                                    //   value={customer.customer_lname}
-                                    //   onChange={e => {
-                                    //     const value = e.target.value;
-                                    //     if (/^[ก-๙\s]*$/.test(value)) {
-                                    //       setCustomer({ ...customer, customer_lname: value });
-                                    //     }
-                                    //   }}
+                                    value={projectsetting.insurance_policystatus}
+                                    onChange={e => {
+                                      const value = e.target.value;
+                                      if (/^[ก-๙\s]*$/.test(value)) {
+                                        setProjectSetting({ ...projectsetting, insurance_policystatus: value });
+                                      }
+                                    }}
                                     className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm"
                                     required
-                                    //   disabled={disable}
+                                    disabled={disable}
+                                    style={{
+                                        cursor: disable ? 'not-allowed' : 'text',
+                                        backgroundColor: disable ? '#f9fafb' : 'white',
+                                    }}
                                 />
-                            </div> 
+                            </div>
+                            {(mode === 'create' || mode === 'update') && (
+                                <div className="flex justify-end items-center gap-2">
+                                    เงื่อนไขการผ่อนชำระ :
+                                    <button
+                                        className="w-[133px] text-white py-2 px-4 rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                                        style={{ backgroundColor: '#006F68'}} 
+                                    >
+                                        <AiOutlinePlus className="inline-block mr-1" />
+                                        ข้อเงื่อนไข
+                                    </button>
+                                </div>
+                            )}
                             <table className="table-auto w-full bg-white border border-gray-300">
                                 <thead>
                                     <tr className="bg-gray-100">
@@ -185,16 +226,20 @@ const ProjectSetting = () => {
                                 <label className="block text-sm font-medium text-gray-700">จำนวนงวดที่ผ่อนชำระเบี้ย</label>
                                 <input
                                     type="text"
-                                    //   value={customer.customer_lname}
-                                    //   onChange={e => {
-                                    //     const value = e.target.value;
-                                    //     if (/^[ก-๙\s]*$/.test(value)) {
-                                    //       setCustomer({ ...customer, customer_lname: value });
-                                    //     }
-                                    //   }}
+                                    value={projectsetting.insurance_policystatus}
+                                    onChange={e => {
+                                      const value = e.target.value;
+                                      if (/^[ก-๙\s]*$/.test(value)) {
+                                        setProjectSetting({ ...projectsetting, insurance_policystatus: value });
+                                      }
+                                    }}
                                     className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm"
                                     required
-                                    //   disabled={disable}
+                                    disabled={disable}
+                                    style={{
+                                        cursor: disable ? 'not-allowed' : 'text',
+                                        backgroundColor: disable ? '#f9fafb' : 'white',
+                                    }}
                                 />
                             </div> 
                         </div>

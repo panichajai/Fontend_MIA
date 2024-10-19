@@ -4,7 +4,7 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        prompt: ['Prompt', 'sans-serif'], // เพิ่มฟอนต์ Prompt
+        prompt: ['Prompt', 'sans-serif'], 
       },
     },
   },

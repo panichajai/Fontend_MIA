@@ -50,26 +50,41 @@ function App() {
           <Route path="/customer/update/:id" element={<PrivateRoute><Customer mode="update" /></PrivateRoute>} />
 
           <Route path="/insurance" element={<PrivateRoute><InsuranceList/></PrivateRoute>} />
-          <Route path="/insurance/create" element={<PrivateRoute><Insurance/></PrivateRoute>}/>
+          <Route path="/insurance/view/:id" element={<PrivateRoute><Insurance mode="view"/></PrivateRoute>}/>
+          <Route path="/insurance/create" element={<PrivateRoute><Insurance mode="create"/></PrivateRoute>}/>
+          <Route path="/insurance/update/:id" element={<PrivateRoute><Insurance mode="update"/></PrivateRoute>}/>
 
           <Route path="/carbrandsetting" element={<PrivateRoute><CarBrandSettingList /></PrivateRoute>} />
-          <Route path="/carbrandsetting/create" element={<PrivateRoute><CarBrandSetting/></PrivateRoute>} />
+          <Route path="/carbrandsetting/view/:id" element={<PrivateRoute><CarBrandSetting mode="view"/></PrivateRoute>}/>
+          <Route path="/carbrandsetting/create" element={<PrivateRoute><CarBrandSetting  mode="create"/></PrivateRoute>} />
+          <Route path="/carbrandsetting/update/:id" element={<PrivateRoute><CarBrandSetting mode="update"/></PrivateRoute>}/>
 
           <Route path="/adminuser" element={<PrivateRoute><AdminUserList/></PrivateRoute>} />
-          <Route path="/adminuser/create" element={<PrivateRoute><AdminUser/></PrivateRoute>} />
+          <Route path="/adminuser/view/:id" element={<PrivateRoute><AdminUser mode="view"/></PrivateRoute>}/>
+          <Route path="/adminuser/create" element={<PrivateRoute><AdminUser mode="create"/></PrivateRoute>} />
+          <Route path="/adminuser/update/:id" element={<PrivateRoute><AdminUser mode="update"/></PrivateRoute>}/>
           <Route path="/rolesetting" element={<PrivateRoute><RoleSettingList/></PrivateRoute>} />
           <Route path="/rolesetting/create" element={<PrivateRoute><RoleSetting /></PrivateRoute>} />
           <Route path="/pdpalog" element={<PrivateRoute><PDPALogList/></PrivateRoute>} />
           <Route path="/pdpalog/create" element={<PrivateRoute><PDPALog/></PrivateRoute>} />
           <Route path="/pdpasetting" element={<PrivateRoute><PDPASettingList/></PrivateRoute>} />
-          <Route path="/pdpasetting/create" element={<PrivateRoute><PDPASetting /></PrivateRoute>} />
+          <Route path="/pdpasetting/view/:id" element={<PrivateRoute><PDPASetting mode="view"/></PrivateRoute>}/>
+          <Route path="/pdpasetting/create" element={<PrivateRoute><PDPASetting mode="create"/></PrivateRoute>} />
+          <Route path="/pdpasetting/update/:id" element={<PrivateRoute><PDPASetting mode="update"/></PrivateRoute>}/>
+
 
           <Route path="/installmentsetting" element={<PrivateRoute><InstallmentSettingList/></PrivateRoute>} />
-          <Route path="/installmentsetting/create" element={<PrivateRoute><InstallmentSetting/></PrivateRoute>} />
+          <Route path="/installmentsetting/view/:id" element={<PrivateRoute><InstallmentSetting mode="view"/></PrivateRoute>}/>
+          <Route path="/installmentsetting/create" element={<PrivateRoute><InstallmentSetting mode="create"/></PrivateRoute>} />
+          <Route path="/installmentsetting/update/:id" element={<PrivateRoute><InstallmentSetting mode="update"/></PrivateRoute>}/>
           <Route path="/projectsetting" element={<PrivateRoute><ProjectSettingList/></PrivateRoute>} />
-          <Route path="/projectsetting/create" element={<PrivateRoute><ProjectSetting/></PrivateRoute>} />
+          <Route path="/projectsetting/view/:id" element={<PrivateRoute><ProjectSetting mode="view"/></PrivateRoute>}/>
+          <Route path="/projectsetting/create" element={<PrivateRoute><ProjectSetting mode="create"/></PrivateRoute>} />
+          <Route path="/projectsetting/update/:id" element={<PrivateRoute><ProjectSetting mode="update"/></PrivateRoute>}/>
           <Route path="/statusinsurancesetting" element={<PrivateRoute><StatusInsuranceSettingList/></PrivateRoute>} />
-          <Route path="/statusinsurancesetting/create" element={<PrivateRoute><StatusInsuranceSetting/></PrivateRoute>} />
+          <Route path="/statusinsurancesetting/view/:id" element={<PrivateRoute><StatusInsuranceSetting mode="view"/></PrivateRoute>}/>
+          <Route path="/statusinsurancesetting/create" element={<PrivateRoute><StatusInsuranceSetting mode="create"/></PrivateRoute>} />
+          <Route path="/statusinsurancesetting/update/:id" element={<PrivateRoute><StatusInsuranceSetting mode="update"/></PrivateRoute>}/>
         </Routes>
       </AuthProvider>
     </Router>
