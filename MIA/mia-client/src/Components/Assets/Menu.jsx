@@ -52,7 +52,7 @@ const Menu = () => {
           </button>
           {isOpenMaster && (
             <ul className="pl-8 space-y-2">
-              <li><button onClick={() => OnChangePage ('CarBrandSetting')} className="block p-1 text-gray-600 hover:text-gray-900">ยี่ห้อรถ Settings</button></li>
+              <li><button onClick={() => OnChangePage ('carbrand')} className="block p-1 text-gray-600 hover:text-gray-900">ยี่ห้อรถ Settings</button></li>
             </ul>
           )}
         </li>

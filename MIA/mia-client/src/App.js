@@ -11,8 +11,8 @@ import CustomerList from './Components/Customer/CustomerList';
 import Insurance from './Components/Insurance/Insurance';
 import InsuranceList from './Components/Insurance/InsuranceList';
 
-import CarBrandSetting from './Components/MasterSetting/CarBrandSetting';
-import CarBrandSettingList from './Components/MasterSetting/CarBrandSettingList';
+import CarBrand from './Components/MasterSetting/CarBrand';
+import CarBrandList from './Components/MasterSetting/CarBrandList';
 
 import AdminUser from './Components/Admin/AdminUser';
 import AdminUserList from './Components/Admin/AdminUserList';
@@ -54,10 +54,10 @@ function App() {
           <Route path="/insurance/create" element={<PrivateRoute><Insurance mode="create"/></PrivateRoute>}/>
           <Route path="/insurance/update/:id" element={<PrivateRoute><Insurance mode="update"/></PrivateRoute>}/>
 
-          <Route path="/carbrandsetting" element={<PrivateRoute><CarBrandSettingList /></PrivateRoute>} />
-          <Route path="/carbrandsetting/view/:id" element={<PrivateRoute><CarBrandSetting mode="view"/></PrivateRoute>}/>
-          <Route path="/carbrandsetting/create" element={<PrivateRoute><CarBrandSetting  mode="create"/></PrivateRoute>} />
-          <Route path="/carbrandsetting/update/:id" element={<PrivateRoute><CarBrandSetting mode="update"/></PrivateRoute>}/>
+          <Route path="/carbrand" element={<PrivateRoute><CarBrandList /></PrivateRoute>} />
+          <Route path="/carbrand/view/:id" element={<PrivateRoute><CarBrand mode="view"/></PrivateRoute>}/>
+          <Route path="/carbrand/create" element={<PrivateRoute><CarBrand  mode="create"/></PrivateRoute>} />
+          <Route path="/carbrand/update/:id" element={<PrivateRoute><CarBrand mode="update"/></PrivateRoute>}/>
 
           <Route path="/adminuser" element={<PrivateRoute><AdminUserList/></PrivateRoute>} />
           <Route path="/adminuser/view/:id" element={<PrivateRoute><AdminUser mode="view"/></PrivateRoute>}/>

@@ -126,15 +126,12 @@ const CustomerList = () => {
     บัตรประชาชน: customer.customer_idCard,
     เครื่องมือ: (
       <div className="flex justify-center items-center space-x-4">
-        {/* ปุ่มดูข้อมูล */}
         <button onClick={() => CustomerView(customer._id)} className="text-black hover:text-gray-700">
           <AiOutlineEye className="w-5 h-5"/>
         </button>
-        {/* ปุ่มแก้ไข */}
         <button onClick={() => CustomerUpdate(customer._id)} className="text-black hover:text-gray-700">
           <AiTwotoneEdit className="w-5 h-5"/>
         </button>
-        {/* ปุ่มลบ */}
         <button onClick={() => openDeleteModal(customer._id)} className="text-black hover:text-gray-700">
           <AiOutlineDelete className="w-5 h-5"/>
         </button>
@@ -189,40 +186,6 @@ const CustomerList = () => {
                 handlePageChange={handlePageChange}
                 handlePageSizeChange={handlePageSizeChange}
               />
-              // <table className="table-auto w-full bg-white border border-gray-300">
-              //   <thead>
-              //     <tr className="bg-gray-100">
-              //       <th className="px-4 py-2 text-center">ลำดับ</th>
-              //       <th className="px-4 py-2 text-center">ชื่อ-สกุล</th>
-              //       <th className="px-4 py-2 text-center">เบอร์โทรศัพท์</th>
-              //       <th className="px-4 py-2 text-center">บัตรประชาชน</th>
-              //       <th className="px-4 py-2 text-center">เครื่องมือ</th>
-              //     </tr>
-              //   </thead>
-              //   <tbody>
-              //     {Array.isArray(filteredItems) && filteredItems.map((customer, index) => (
-              //       <tr key={customer._id} className="border-t"> 
-              //         <td className="px-4 py-2 text-center">{index + 1}</td>
-              //         <td className="px-4 py-2 text-center">{customer.customer_fname} {customer.customer_lname}</td>
-              //         <td className="px-4 py-2 text-center">{customer.customer_phone}</td>
-              //         <td className="px-4 py-2 text-center">{customer.customer_idCard}</td>
-              //         <td className="px-4 py-2 text-center">
-              //           <div className="flex justify-center items-center space-x-4">
-              //             <button onClick={() => CustomerView(customer._id)} className="text-black hover:text-gray-700">
-              //               <AiOutlineEye className="w-5 h-5"/>
-              //             </button>
-              //             <button onClick={() => CustomerUpdate(customer._id)} className="text-black hover:text-gray-700 ">
-              //               <AiTwotoneEdit className="w-5 h-5"/>
-              //             </button>
-              //             <button onClick={() => openDeleteModal(customer._id)} className="text-black hover:text-gray-700">
-              //               <AiOutlineDelete  className="w-5 h-5"/>
-              //             </button>
-              //           </div>
-              //         </td>
-              //       </tr>
-              //     ))}
-              //   </tbody>
-              // </table>
             )}
           </div>
         </div>

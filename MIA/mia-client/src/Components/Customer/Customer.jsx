@@ -140,7 +140,12 @@ const Customer = ({ mode }) => {
     return null;
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = (e) => {
+    e.preventDefault(); 
+    openModal(); 
+  };
+  
+  const handleConfirm = () => {
     const myHeaders = new Headers();
     myHeaders.append('Content-Type', 'application/json');
 
@@ -169,10 +174,7 @@ const Customer = ({ mode }) => {
         }
       })
       .catch(error => console.error('Error:', error));
-  };
 
-  const handleConfirm = () => {
-    handleSubmit();
     closeModal();
   };
 
