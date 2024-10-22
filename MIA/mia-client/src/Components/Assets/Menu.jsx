@@ -86,9 +86,9 @@ const Menu = () => {
           </button>
           {isOpenSystem && (
             <ul className="pl-8 space-y-2">
-              <li><button onClick={() => OnChangePage ('installmentsetting')} className="block p-1 text-gray-600 hover:text-gray-900">ผ่อนชำระ Setting</button></li>
+              <li><button onClick={() => OnChangePage ('installment')} className="block p-1 text-gray-600 hover:text-gray-900">ผ่อนชำระ Setting</button></li>
               <li><button onClick={() => OnChangePage ('projectsetting')} className="block p-1 text-gray-600 hover:text-gray-900">เข้าร่วมโครงการ Setting</button></li>
-              <li><button onClick={() => OnChangePage ('statusinsurancesetting')} className="block p-1 text-gray-600 hover:text-gray-900">สถานะกรมธรรม์ Setting</button></li>
+              <li><button onClick={() => OnChangePage ('statusinsurance')} className="block p-1 text-gray-600 hover:text-gray-900">สถานะกรมธรรม์ Setting</button></li>
             </ul>
           )}
         </li>

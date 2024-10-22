@@ -30,15 +30,14 @@ const Popup = ({
             marginRight: '-50%',
             transform: 'translate(-50%, -50%)',
             padding: '20px',
-            width: '400px',
             borderRadius: '10px',
             border: 'none',
           },
         }}
       >
         <div className="flex items-center mb-4">
-          {icon && <span className="mr-2">{icon}</span>}
-          <h2 className="text-lg font-medium">{title}</h2>
+          {icon && <span className="mr-2" style={{ fontSize: '24px' }}>{icon}</span>}
+          <h2 className="text-lg font-medium mt-1">{title}</h2>
         </div>
         <div className="flex justify-between mt-6 gap-2">
           <button

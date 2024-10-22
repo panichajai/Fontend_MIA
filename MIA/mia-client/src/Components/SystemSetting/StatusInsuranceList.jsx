@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback }  from 'react'
+import React, { useState, useEffect, useCallback } from 'react';
 import Header from '../Assets/Header';
 import Menu from '../Assets/Menu';
 import Nav from '../Assets/Nav';
@@ -9,16 +9,14 @@ import API_BASE_URL from '../../config';
 import TableWithPagination from '../Assets/TableWithPagination';
 import Popup from '../Assets/Popup';
 
-
-
-const CarBrandList = () => {
+const StatusInsuranceList = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [pageSize, setPageSize] = useState(5);
   const [items, setItems] = useState([]); 
   const [filteredItems, setFilteredItems] = useState([]);
   const [searchTerm, setSearchTerm] = useState(''); 
   const [modalIsOpen, setModalIsOpen] = useState(false); 
-  const [selectedCarBrandId, setSelectedCarBrandId] = useState(null); 
+  const [selectedStatusInsuranceId, setSelectedStatusInsuranceId] = useState(null); 
   const [loading, setLoading] = useState(false); 
   const api = API_BASE_URL;
   const navigate = useNavigate();
@@ -33,23 +31,21 @@ const CarBrandList = () => {
   };
 
 
-  const CarBrandCreate = () => {
-    navigate(`/carbrand/create`); 
+  const StatusInsuranceCreate = () => {
+    navigate(`/statusinsurance/create`); 
   }
 
-  const CarBrandUpdate = id => {
-    navigate(`/carbrand/update/${id}`); 
+  const StatusInsuranceUpdate = id => {
+    navigate(`/statusinsurance/update/${id}`); 
   }
 
-  const CarBrandView = id => {
-    console.log('not found id page carbramdlist :' , id)
-    navigate(`/carbrand/view/${id}`); 
+  const StatusInsuranceView = id => {
+    navigate(`/statusinsurance/view/${id}`); 
   }
-
 
   const UserGet = useCallback(() => {
     setLoading(true);
-    fetch(api + "setting/carbrand")
+    fetch(api + "setting/statusinsurance")
       .then(res => res.json())
       .then((result) => {
         console.log(result);
@@ -73,9 +69,10 @@ const CarBrandList = () => {
     console.log("handleSearch value :", value);
     setSearchTerm(value);
     if (items.length > 0) {
-      const filtered = items.filter(carbrand =>
-        carbrand.brandEN.toLowerCase().includes(value) ||
-        carbrand.modelEN.toLowerCase().includes(value) 
+      const filtered = items.filter(statusinsurance =>
+        statusinsurance.statusTH.toLowerCase().includes(value) ||
+        statusinsurance.statusEN.toLowerCase().includes(value) ||
+        statusinsurance.code.toLowerCase().includes(value) 
       );
       
       console.log('Filtered Items:', filtered); 
@@ -86,13 +83,13 @@ const CarBrandList = () => {
   };
 
   const openDeleteModal = id => {
-    setSelectedCarBrandId(id);
+    setSelectedStatusInsuranceId(id);
     setModalIsOpen(true);
   }
 
   const closeDeleteModal = () => {
     setModalIsOpen(false);
-    setSelectedCarBrandId(null);
+    setSelectedStatusInsuranceId(null);
   }
 
   const handleDeleteConfirm = () => {
@@ -101,7 +98,7 @@ const CarBrandList = () => {
       headers: { "Content-Type": "application/json" },
     };
 
-    fetch(api+`setting/carbrand/${selectedCarBrandId}`, requestOptions) 
+    fetch(api+`setting/statusinsurance/${selectedStatusInsuranceId}`, requestOptions) 
       .then((response) => response.json())
       .then((result) => {
         alert(result['message']);
@@ -113,26 +110,28 @@ const CarBrandList = () => {
       .catch((error) => console.error(error));
   }
 
-  const columns = ['Brand (EN)', 'Model (EN)', 'เครื่องมือ']; 
+  const columns = ['ชื่อสถานะ (TH)', 'ชื่อสถานะ (EN)', 'code', 'เครื่องมือ'];
 
-  const formattedData = filteredItems.map((carbrand) => ({
-    'Brand (EN)': carbrand.brandEN,
-    'Model (EN)': carbrand.modelEN,
+  const formattedData = filteredItems.map((statusinsurance) => ({
+    'ชื่อสถานะ (TH)': statusinsurance.statusTH,
+    'ชื่อสถานะ (EN)': statusinsurance.statusEN,
+    code: statusinsurance.code,
     เครื่องมือ: (
       <div className="flex justify-center items-center space-x-4">
-        <button onClick={() => CarBrandView(carbrand._id)} className="text-black hover:text-gray-700">
+        <button onClick={() => StatusInsuranceView(statusinsurance._id)} className="text-black hover:text-gray-700">
           <AiOutlineEye className="w-5 h-5"/>
         </button>
-        <button onClick={() => CarBrandUpdate(carbrand._id)} className="text-black hover:text-gray-700">
+        <button onClick={() => StatusInsuranceUpdate(statusinsurance._id)} className="text-black hover:text-gray-700">
           <AiTwotoneEdit className="w-5 h-5"/>
         </button>
-        <button onClick={() => openDeleteModal(carbrand._id)} className="text-black hover:text-gray-700">
+        <button onClick={() => openDeleteModal(statusinsurance._id)} className="text-black hover:text-gray-700">
           <AiOutlineDelete className="w-5 h-5"/>
         </button>
       </div>
     )
   }));
   console.log(formattedData);
+
 
   return (
     <div className="flex h-screen" style={{ backgroundColor: '#F4F8FA' }}>
@@ -142,19 +141,19 @@ const CarBrandList = () => {
       <div className="flex-1 flex flex-col">
         <Header />
         <div className="py-4 pl-6 bg-white">
-          <Nav pageName="ยี่ห้อรถ Settings" />
-          <div className="mt-4 text-4xl ">ยี่ห้อรถ Settings</div>        
+          <Nav pageName="สถานะกรมธรรม์ Setting" />
+          <div className="mt-4 text-4xl ">สถานะกรมธรรม์ Setting</div>        
         </div>
         <div className="px-6 ">
           <div className="flex w-full rounded-md my-4 gap-3">
             <SearchInput
-              placeholder="ค้นหาด้วย ค้นหาด้วย Brand (EN), Model (EN)"
+              placeholder="ค้นหาด้วย ชื่อสถานะ (TH), ชื่อสถานะ (EN), Code"
               value={searchTerm}
               onChange={handleSearch}
             />
-            <button onClick={CarBrandCreate} className="flex justify-center items-center space-x-2 border border-gray-300 px-3.5 rounded-md" style={{ backgroundColor: '#006F68' }}>
+            <button onClick={StatusInsuranceCreate} className="flex justify-center items-center space-x-2 border border-gray-300 px-3.5 rounded-md" style={{ backgroundColor: '#006F68' }}>
               <AiOutlinePlus className="w-5 h-5 text-white" />
-              <div className="ml-2" style={{ color: 'white' }}>สร้าง</div>
+              <div className="ml-2 " style={{color:'white'}}>สร้าง</div> 
             </button>
             </div>
             {loading ? (
@@ -173,7 +172,7 @@ const CarBrandList = () => {
               isOpen={modalIsOpen}
               onRequestClose={closeDeleteModal}
               title={
-                <>คุณต้องการ <span style={{ fontWeight: 'bold' }}>ลบรายละเอียดยี่ห้อรถ</span> ใช่หรือไม่?</>
+                <>คุณต้องการ <span style={{ fontWeight: 'bold' }}>ลบรายละเอียดสถานะกรมธรรม์</span> ใช่หรือไม่?</>
               }
               confirmLabel="ลบรายละเอียด"
               cancelLabel="ยกเลิก"
@@ -193,5 +192,5 @@ const CarBrandList = () => {
 
   
 }
-export default CarBrandList;
+export default StatusInsuranceList;
 

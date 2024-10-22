@@ -1,4 +1,4 @@
-import React, { useState, createContext, useContext, useEffect } from "react";
+import React, { useState, createContext, useContext, useEffect, useCallback  } from "react";
 import { useNavigate } from "react-router-dom";
 import { jwtDecode } from "jwt-decode";
 
@@ -31,17 +31,17 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
-  const logout = () => {
+  const logout = useCallback(() => {
     localStorage.removeItem("token");
     setToken(null);
     navigate("/login");
-  };
-
+  }, [navigate]);
+  
   useEffect(() => {
     if (!token || isTokenExpired(token)) {
-      logout(); 
+      logout();
     }
-  }, [token, navigate]);
+  }, [token, logout]);
 
   return (
     <AuthContext.Provider value={{ token, login, logout }}>

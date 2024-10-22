@@ -9,7 +9,6 @@ import API_BASE_URL from '../../config';
 import Popup from '../Assets/Popup';
 
 
-
 const CarBrandSetting = ({ mode }) => {
     const { id } = useParams();
     const api = API_BASE_URL;
@@ -28,7 +27,7 @@ const CarBrandSetting = ({ mode }) => {
     useEffect(() => {
         if (mode === 'update' || mode === 'view') {
           if (!id) {
-            setErrorMessage('Invalid carbrand ID');
+            setErrorMessage('not find carbrand id');
             return;
           }
     
@@ -36,11 +35,11 @@ const CarBrandSetting = ({ mode }) => {
             method: 'GET',
             redirect: 'follow',
           };
-    
-          fetch(`${api}carbrand/${id}`, requestOptions)
+
+          fetch(`${api}setting/carbrand/${id}`, requestOptions)
             .then(response => response.json())
             .then(result => {
-              console.log(result);
+
                 if (result.status === 200 && result.success) {
                   setCarBrand(result.data);
                 } else {
@@ -71,8 +70,7 @@ const CarBrandSetting = ({ mode }) => {
           body: raw,
           redirect: 'follow',
         };
-        const apiUrl = mode === 'create' ? api + 'carbrand' : api+`carbrand/${id}`;
-    
+        const apiUrl = mode === 'create' ? api + 'setting/carbrand' : api+`setting/carbrand/${id}`;
         fetch(apiUrl, requestOptions)
           .then(response => response.json())
           .then(result => {
@@ -124,7 +122,7 @@ const CarBrandSetting = ({ mode }) => {
                                     value={carbrand.brandEN}
                                     onChange={e => {
                                       const value = e.target.value;
-                                      if (/^[ก-๙\s]*$/.test(value)) {
+                                      if (/^[ก-๙a-zA-Z0-9\s]*$/.test(value)) {
                                         setCarBrand({ ...carbrand, brandEN: value });
                                       }
                                     }}
@@ -144,7 +142,7 @@ const CarBrandSetting = ({ mode }) => {
                                     value={carbrand.modelEN}
                                     onChange={e => {
                                       const value = e.target.value;
-                                      if (/^[ก-๙\s]*$/.test(value)) {
+                                      if (/^[ก-๙a-zA-Z0-9\s]*$/.test(value)) {
                                         setCarBrand({ ...carbrand, modelEN: value });
                                       }
                                     }}
@@ -194,16 +192,16 @@ const CarBrandSetting = ({ mode }) => {
                         <Popup
                             isOpen={modalIsOpen}
                             onRequestClose={closeModal}
-                            title={
+                            title={ 
                             <>
                                 คุณต้องการ <span 
                                 style={{ fontWeight: 'bold' 
                                 }}>
-                                {mode === 'create' ? 'สร้างรายละเอียดยี่ห้อรถ' : 'บันทึกการแก้ไข'}
+                                {mode === 'create' ? 'สร้างรายละเอียดยี่ห้อรถ' : 'แก้ไขรายละเอียดยี่ห้อรถ'}
                                 </span> ใช่หรือไม่?
                             </>
                             }
-                            confirmLabel={mode === 'create' ? 'สร้างข้อมูลลูกค้า' : 'บันทึกการแก้ไข'}
+                            confirmLabel={mode === 'create' ? 'ยืนยันการสร้าง' : 'ยืนยันการแก้ไข'}
                             cancelLabel="ยกเลิก"
                             onConfirm={handleConfirm}
                             icon={mode === 'create' ? 
@@ -214,6 +212,7 @@ const CarBrandSetting = ({ mode }) => {
                             backgroundColor: mode === 'create' ? '#006F68' : '#FAAD14', 
                             color: 'white'
                             }}
+                            
                         />
                     </form>
                 </div>

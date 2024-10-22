@@ -23,12 +23,12 @@ import PDPALogList from './Components/Admin/PDPALogList';
 import PDPASetting from './Components/Admin/PDPASetting';
 import PDPASettingList from './Components/Admin/PDPASettingList';
 
-import InstallmentSetting from './Components/SystemSetting/InstallmentSetting';
-import InstallmentSettingList from './Components/SystemSetting/InstallmentSettingList';
+import Installment from './Components/SystemSetting/Installment';
+import InstallmentList from './Components/SystemSetting/InstallmentList';
 import ProjectSetting from './Components/SystemSetting/ProjectSetting';
 import ProjectSettingList from './Components/SystemSetting/ProjectSettingList';
-import StatusInsuranceSetting from './Components/SystemSetting/StatusInsuranceSetting';
-import StatusInsuranceSettingList from './Components/SystemSetting/StatusInsuranceSettingList';
+import StatusInsurance from './Components/SystemSetting/StatusInsurance';
+import StatusInsuranceList from './Components/SystemSetting/StatusInsuranceList';
 
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import PrivateRoute from './service/PrivateRoute';
@@ -73,18 +73,18 @@ function App() {
           <Route path="/pdpasetting/update/:id" element={<PrivateRoute><PDPASetting mode="update"/></PrivateRoute>}/>
 
 
-          <Route path="/installmentsetting" element={<PrivateRoute><InstallmentSettingList/></PrivateRoute>} />
-          <Route path="/installmentsetting/view/:id" element={<PrivateRoute><InstallmentSetting mode="view"/></PrivateRoute>}/>
-          <Route path="/installmentsetting/create" element={<PrivateRoute><InstallmentSetting mode="create"/></PrivateRoute>} />
-          <Route path="/installmentsetting/update/:id" element={<PrivateRoute><InstallmentSetting mode="update"/></PrivateRoute>}/>
+          <Route path="/installment" element={<PrivateRoute><InstallmentList/></PrivateRoute>} />
+          <Route path="/installment/view/:id" element={<PrivateRoute><Installment mode="view"/></PrivateRoute>}/>
+          <Route path="/installment/create" element={<PrivateRoute><Installment mode="create"/></PrivateRoute>} />
+          <Route path="/installment/update/:id" element={<PrivateRoute><Installment mode="update"/></PrivateRoute>}/>
           <Route path="/projectsetting" element={<PrivateRoute><ProjectSettingList/></PrivateRoute>} />
           <Route path="/projectsetting/view/:id" element={<PrivateRoute><ProjectSetting mode="view"/></PrivateRoute>}/>
           <Route path="/projectsetting/create" element={<PrivateRoute><ProjectSetting mode="create"/></PrivateRoute>} />
           <Route path="/projectsetting/update/:id" element={<PrivateRoute><ProjectSetting mode="update"/></PrivateRoute>}/>
-          <Route path="/statusinsurancesetting" element={<PrivateRoute><StatusInsuranceSettingList/></PrivateRoute>} />
-          <Route path="/statusinsurancesetting/view/:id" element={<PrivateRoute><StatusInsuranceSetting mode="view"/></PrivateRoute>}/>
-          <Route path="/statusinsurancesetting/create" element={<PrivateRoute><StatusInsuranceSetting mode="create"/></PrivateRoute>} />
-          <Route path="/statusinsurancesetting/update/:id" element={<PrivateRoute><StatusInsuranceSetting mode="update"/></PrivateRoute>}/>
+          <Route path="/statusinsurance" element={<PrivateRoute><StatusInsuranceList/></PrivateRoute>} />
+          <Route path="/statusinsurance/view/:id" element={<PrivateRoute><StatusInsurance mode="view"/></PrivateRoute>}/>
+          <Route path="/statusinsurance/create" element={<PrivateRoute><StatusInsurance mode="create"/></PrivateRoute>} />
+          <Route path="/statusinsurance/update/:id" element={<PrivateRoute><StatusInsurance mode="update"/></PrivateRoute>}/>
         </Routes>
       </AuthProvider>
     </Router>
