@@ -4,14 +4,23 @@ import Menu from '../Assets/Menu';
 import Nav from '../Assets/Nav';
 import Tab from '../Assets/Tab';
 import { useNavigate } from 'react-router-dom';
-import { AiOutlineEye, AiTwotoneEdit, AiOutlineDelete,AiOutlinePlus } from "react-icons/ai";
+import { AiOutlineEye, AiTwotoneEdit, AiOutlineDelete, AiOutlinePlus, AiOutlineCloseCircle  } from "react-icons/ai";
 import SearchInput from '../Assets/SearchInput';
+import API_BASE_URL from '../../config';
+import TableWithPagination from '../Assets/TableWithPagination';
+import Popup from '../Assets/Popup';
 
 const Insurance = () => {
-  const navigate = useNavigate();
+  const [currentPage, setCurrentPage] = useState(1);
+  const [pageSize, setPageSize] = useState(5);
   const [items, setItems] = useState([]); 
   const [filteredItems, setFilteredItems] = useState([]);
   const [searchTerm, setSearchTerm] = useState(''); 
+  const [modalIsOpen, setModalIsOpen] = useState(false); 
+  const [selectedInstallmentId, setSelectedInstallmentId] = useState(null); 
+  const [loading, setLoading] = useState(false); 
+  const api = API_BASE_URL;
+  const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState('tab1');
   const handleTabClick = (tabId) => {
     setActiveTab(tabId);
@@ -25,40 +34,48 @@ const Insurance = () => {
   ];
   
 
-  const [dataResult , /*setDataResult*/] = useState([
-    {
-      _id:1,
-      documentNumber: "IS6707000001",
-      agentCode: "AA987654",
-      agentName: "สิทธิกร บุญเรืองขาว",
-      customer: "สมชาย เป็นชาย",
-      vehicleNumber: "1กด1111",
-    },
-    {
-      _id:2,
-      documentNumber: "IS6707000002",
-      agentCode: "AA987654",
-      agentName: "สิทธิกร บุญเรืองขาว",
-      customer: "สมหญิง เป็นหญิง",
-      vehicleNumber: "2กด2222",
-    },
-    {
-      _id:3,
-      documentNumber: "IS6707000003",
-      agentCode: "AA987654",
-      agentName: "สิทธิกร บุญเรืองขาว",
-      customer: "รักยิ้ม รักกัน",
-      vehicleNumber: "3กด3333",
-    },
-  ]);
+  const handlePageChange = (event, value) => {
+    setCurrentPage(value);
+  };
+
+  const handlePageSizeChange = (event) => {
+    setPageSize(parseInt(event.target.value, 10));
+    setCurrentPage(1); 
+  };
+
+  const InsuranceUpdate = id => {
+    navigate(`/insurance/update/${id}`); 
+  }
+
+  const InsuranceView = id => {
+    navigate(`/insurance/view/${id}`); 
+  }
+
+  const InsuranceCreate = () => {
+    navigate(`/insurance/create`); 
+  }
+
 
   const UserGet = useCallback(() => {
-    setItems(dataResult);
-    setFilteredItems(dataResult);
-  }, [dataResult]);
+    setLoading(true);
+    fetch(api + "setting/installment")
+      .then(res => res.json())
+      .then((result) => {
+        console.log(result);
+        setItems(result.data);
+        setFilteredItems(result.data);
+        setLoading(false); 
+      })
+      .catch((error) => {
+        console.error("Error fetching data: ", error);
+        setLoading(false); 
+      });
+  }, [api]); 
+
+  
   useEffect(() => {
     UserGet();
-  }, [UserGet]);
+  }, [UserGet])
 
   const handleSearch = (e) => {
     const value = e.target.value.toLowerCase();
@@ -80,21 +97,55 @@ const Insurance = () => {
     }
   };
 
-  const InsuranceUpdate = id => {
-    navigate(`/insurance/update/${id}`); 
-  }
-
-  const InsuranceView = id => {
-    navigate(`/insurance/view/${id}`); 
-  }
-
-  const InsuranceCreate = () => {
-    navigate(`/insurance/create`); 
-  }
-
-
   const openDeleteModal = id => {
+    setSelectedInstallmentId(id);
+    setModalIsOpen(true);
   }
+
+  const closeDeleteModal = () => {
+    setModalIsOpen(false);
+    setSelectedInstallmentId(null);
+  }
+
+  const handleDeleteConfirm = () => {
+    const requestOptions = {
+      method: "DELETE",
+      headers: { "Content-Type": "application/json" },
+    };
+
+    fetch(api+`setting/installment/${selectedInstallmentId}`, requestOptions) 
+      .then((response) => response.json())
+      .then((result) => {
+        alert(result['message']);
+        if (result['status'] === 200) {
+          UserGet(); 
+          closeDeleteModal(); 
+        }
+      })
+      .catch((error) => console.error(error));
+  }
+
+  const columns = ['สถานะผ่อนชำระ (TH)', 'สถานะผ่อนชำระ (EN)', 'เครื่องมือ'];
+
+  const formattedData = filteredItems.map((installment) => ({
+    'สถานะผ่อนชำระ (TH)': installment.statusTH,
+    'สถานะผ่อนชำระ (EN)': installment.statusEN,
+    เครื่องมือ: (
+      <div className="flex justify-center items-center space-x-4">
+        <button onClick={() => InsuranceView(installment._id)} className="text-black hover:text-gray-700">
+          <AiOutlineEye className="w-5 h-5"/>
+        </button>
+        <button onClick={() => InsuranceUpdate(installment._id)} className="text-black hover:text-gray-700">
+          <AiTwotoneEdit className="w-5 h-5"/>
+        </button>
+        <button onClick={() => openDeleteModal(installment._id)} className="text-black hover:text-gray-700">
+          <AiOutlineDelete className="w-5 h-5"/>
+        </button>
+      </div>
+    )
+  }));
+  console.log(formattedData);
+
   return (
     <div className="flex h-screen" style={{ backgroundColor: '#F4F8FA' }}>
       <div className="w-[248px] bg-gray-100">
@@ -114,8 +165,8 @@ const Insurance = () => {
                 value={searchTerm}
                 onChange={handleSearch}
               />
-              <button onClick={InsuranceCreate} className="flex justify-center items-center space-x-2 border border-gray-300 px-3.5 rounded-md" style={{ backgroundColor: '#006F68' }}>
-                <AiOutlinePlus className="w-5 h-5 text-white" />
+              <button onClick={InsuranceCreate} className="inline-flex justify-center items-center space-x-2 border border-gray-300 px-3.5 rounded-md" style={{ backgroundColor: '#006F68' , whiteSpace: 'nowrap'}}>
+                <AiOutlinePlus className="w-3.5 h-3.5 text-white" />
                 <div className="ml-2" style={{ color: 'white' }}>สร้าง</div>
               </button>
             </div>
@@ -130,44 +181,33 @@ const Insurance = () => {
                 />
               ))}
             </div>
-            <table className="table-auto w-full bg-white border border-gray-300">
-              <thead>
-                <tr className="bg-gray-100">
-                  <th className="px-4 py-2 text-center">ลำดับ</th>
-                  <th className="px-4 py-2 text-center">เลขที่เอกสาร</th>
-                  <th className="px-4 py-2 text-center">รหัสตัวแทน</th>
-                  <th className="px-4 py-2 text-center">ตัวแทน</th>
-                  <th className="px-4 py-2 text-center">ลูกค้า</th>
-                  <th className="px-4 py-2 text-center">ทะเบียนรถ</th>
-                  <th className="px-4 py-2 text-center">เครื่องมือ</th>
-                </tr>
-              </thead>
-              <tbody>
-                {Array.isArray(filteredItems) && filteredItems.map((insurance, index) => (
-                  <tr key={insurance._id} className="border-t">
-                    <td className="px-4 py-2 text-center">{index + 1}</td>
-                    <td className="px-4 py-2 text-center">{insurance.documentNumber}</td>
-                    <td className="px-4 py-2 text-center">{insurance.agentCode}</td>
-                    <td className="px-4 py-2 text-center">{insurance.agentName}</td>
-                    <td className="px-4 py-2 text-center">{insurance.customer}</td>
-                    <td className="px-4 py-2 text-center">{insurance.vehicleNumber}</td>
-                    <td className="px-4 py-2 text-center">
-                      <div className="flex justify-center items-center space-x-4">
-                        <button onClick={() => InsuranceView(insurance._id)} className="text-black hover:text-gray-700">
-                          <AiOutlineEye className="w-5 h-5" />
-                        </button>
-                        <button onClick={() => InsuranceUpdate(insurance._id)} className="text-black hover:text-gray-700">
-                          <AiTwotoneEdit className="w-5 h-5" />
-                        </button>
-                        <button onClick={() => openDeleteModal(insurance._id)} className="text-black hover:text-gray-700">
-                          <AiOutlineDelete className="w-5 h-5" />
-                        </button>
-                      </div>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
+            {loading ? (
+              <div className="text-center py-6">Loading...</div> 
+            ) : (
+              <TableWithPagination
+                columns={columns}
+                data={formattedData}
+                currentPage={currentPage}
+                pageSize={pageSize}
+                handlePageChange={handlePageChange}
+                handlePageSizeChange={handlePageSizeChange}
+              />
+            )}
+            <Popup
+              isOpen={modalIsOpen}
+              onRequestClose={closeDeleteModal}
+              title={
+                <>คุณต้องการ <span style={{ fontWeight: 'bold' }}>ลบรายละเอียดผ่อนชำระ</span> ใช่หรือไม่?</>
+              }
+              confirmLabel="ลบรายละเอียด"
+              cancelLabel="ยกเลิก"
+              onConfirm={handleDeleteConfirm}
+              icon={<AiOutlineCloseCircle  style={{ color: '#FF4D4F' }} />}
+              confirmButtonStyle={{
+                backgroundColor: '#FF4D4F',
+                color: 'white'
+              }}
+            />
           </div>
         </div>
       </div>

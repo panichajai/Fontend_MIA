@@ -83,8 +83,8 @@ const ProjectSettingList = () => {
               value={searchTerm}
               onChange={handleSearch}
             />
-            <button onClick={ProjectSettingCreate} className="flex justify-center items-center space-x-2 border border-gray-300 px-3.5 rounded-md" style={{ backgroundColor: '#006F68' }}>
-              <AiOutlinePlus className="w-5 h-5 text-white" />
+            <button onClick={ProjectSettingCreate} className="inline-flex justify-center items-center space-x-2 border border-gray-300 px-3.5 rounded-md" style={{ backgroundColor: '#006F68' , whiteSpace: 'nowrap'}}>
+              <AiOutlinePlus className="w-3.5 h-3.5 text-white" />
               <div className="ml-2 " style={{color:'white'}}>สร้าง</div> 
             </button>
             </div>

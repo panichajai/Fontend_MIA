@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import logo from '../Assets/logo.png';
+import logo from '../Assets/image/logo.png';
 import { AiOutlineDown, AiOutlineUser, AiOutlineUnorderedList , AiOutlineInsurance , AiOutlineSetting, AiOutlineHighlight, AiOutlineApi, AiOutlineLogout } from "react-icons/ai";
 import { useNavigate } from 'react-router-dom';
 

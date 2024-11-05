@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useParams } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import Header from '../Assets/Header';
@@ -11,7 +11,7 @@ import { DatePicker } from 'antd';
 import 'antd/dist/reset.css'; 
 import moment from 'moment'; 
 import 'react-datepicker/dist/react-datepicker.css'; 
-import { AiOutlinePlus, AiOutlineSave, AiOutlineCheckCircle, AiOutlineWarning } from 'react-icons/ai';
+import { AiOutlinePlus, AiOutlineSave, AiOutlineCheckCircle, AiOutlineWarning, AiOutlineDelete } from 'react-icons/ai';
 import API_BASE_URL from '../../config';
 
 
@@ -19,9 +19,12 @@ const Customer = ({ mode }) => {
   const { id } = useParams();
   const api = API_BASE_URL;
   const navigate = useNavigate();
+  const [images, setImages] = useState([]);
+  const [, setFileSelected] = useState(false); 
+  const fileInputRef = useRef(null);
   const [activeTab, setActiveTab] = useState('tab1');
   const handleTabClick = (tabId) => {
-    setActiveTab(tabId);
+    setActiveTab(tabId); 
   };
   const tabs = [
     { id: 'tab1', label: 'ข้อมูลส่วนตัว', link: ' ' },
@@ -93,7 +96,14 @@ const Customer = ({ mode }) => {
           console.error('Fetch error:', error);
           setErrorMessage('Error fetching customer data');
         });
-    }
+
+        const mockImages = [
+          'https://plus.unsplash.com/premium_photo-1690407617542-2f210cf20d7e?q=80&w=1887&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D', 
+        ];
+        setImages(mockImages);
+       
+
+      }
   }, [id, mode, api]);
 
   const handleDateOfBirthChange = (date, dateString) => {
@@ -191,6 +201,34 @@ const Customer = ({ mode }) => {
     );
   }
 
+  const handleButtonClick = () => {
+    fileInputRef.current.click(); 
+  };
+
+  const handleFileChange = (event) => {
+    const file = event.target.files[0];
+    if (file) {
+      const imageUrl = URL.createObjectURL(file);  
+      setImages((prevImages) => [...prevImages, { imageUrl, name: file.name }]);  
+      setFileSelected(true);
+    }
+  };
+
+  const handleDeleteImage = (imageUrl) => {
+    console.log("Attempting to delete image:", imageUrl); 
+    setImages((prevImages) => {
+      const updatedImages = prevImages.filter((img) => img.imageUrl !== imageUrl);
+      console.log("Images after deletion attempt:", updatedImages);
+  
+      if (updatedImages.length === 0 && fileInputRef.current) {
+        console.log("No images left, clearing file input.");
+        fileInputRef.current.value = ''; 
+      }
+      console.log('updatedImages :' , updatedImages);
+      return updatedImages;
+    });
+  };
+  console.log("Current mode:", mode);
 
   return (
     <div className="flex h-screen" style={{ backgroundColor: '#F4F8FA' }}>
@@ -203,16 +241,16 @@ const Customer = ({ mode }) => {
               <Nav pageName="ลูกค้า" />
               <div className="mt-4 text-4xl ">ลูกค้า</div>   
               <div className="flex border-b gap-8 mb-2 mt-4">
-              {tabs.map((tab) => (
-                <Tab
-                  key={tab.id}
-                  label={tab.label}
-                  isActive={activeTab === tab.id}
-                  onClick={() => handleTabClick(tab.id)}
-                  link={tab.link}
-                />
-              ))}
-            </div>     
+                {tabs.map((tab) => (
+                  <Tab
+                    key={tab.id}
+                    label={tab.label}
+                    isActive={activeTab === tab.id}
+                    onClick={() => handleTabClick(tab.id)}
+                    link={tab.link}
+                  />
+                ))}
+              </div>     
             </div>
         <div className="flex-1 flex flex-col">
           <div className="max-w p-6 m-6 bg-white shadow-md rounded-md">
@@ -397,7 +435,7 @@ const Customer = ({ mode }) => {
                         placeholder="เลือกวันที่"
                         disabled={disable}
                         inputReadOnly={!disable}
-                        style={{ width: '100%' }}
+                        style={{ width: '100%', marginTop:'4px'}}
                       />
                       <Popup modalIsOpen={modalIsOpen} closeModal={closeModal} confirmAction={handleConfirm} />
                     </div>
@@ -412,10 +450,74 @@ const Customer = ({ mode }) => {
                         placeholder="เลือกวันที่"
                         disabled={disable}
                         inputReadOnly={!disable}
-                        style={{ width: '100%' }}
+                        style={{ width: '100%', marginTop:'4px'}}
                       />
                       <Popup modalIsOpen={modalIsOpen} closeModal={closeModal} confirmAction={handleConfirm} />
                     </div>
+                  </div>
+                </div>
+                <div className="flex flex-col gap-1">
+                  <div className="font-semibold">รูปถ่าย</div>
+                  <div className="flex flex-col gap-2">
+                    <label>รูปถ่ายหน้าตรงคู่บัตรประชาชน</label>
+                    {mode === 'create' && (
+                      <div style={{ display: 'flex', alignItems: 'center' }}>
+                        {images.length === 0 && (
+                          <button onClick={handleButtonClick} style={{
+                            padding: '4px 16px',
+                            backgroundColor: 'white',
+                            color: 'black',
+                            border: '1px solid #D9D9D9', 
+                            borderRadius: '4px',
+                            cursor: 'pointer',
+                          }}>
+                            Choose File
+                          </button>
+                        )}
+                        <input
+                          type="file"
+                          accept="image/*"
+                          ref={fileInputRef}
+                          onChange={handleFileChange}
+                          style={{ display: 'none' }}
+                        />
+                      </div>
+                    )}
+                  </div>
+                  <div style={{ display: 'flex', alignItems: 'center', marginTop: '4px' }}>
+                    {images.map((image, index) => (
+                      <div key={index} style={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        border: '1px solid #ddd',
+                        padding: '8px',
+                        borderRadius: '8px',
+                        width: '405px',
+                        }}>
+                        {mode === 'create' ? (
+                          <>
+                            <img src={image.imageUrl} alt={`Uploaded ${index}`} style={{ width: '50px', height: '50px', borderRadius: '4px', marginRight: '10px' }} />
+                            <span style={{ flex: '1', color: '#333' }}>{image.name}</span>
+                          </>
+                          ) : (
+                          <>
+                            <img src={image} alt={`Uploaded ${index}`} style={{ width: '50px', height: '50px', borderRadius: '4px', marginRight: '10px' }} />
+                            <span style={{ flex: '1', color: '#333' }}>xxx.img</span>
+                          </>
+                        )}
+                        {mode !== 'view' && (
+                          <button onClick={() => handleDeleteImage(image.imageUrl)} 
+                            style={{
+                              background: 'none',
+                              border: 'none',
+                              cursor: 'pointer',
+                              color: '#888'
+                            }}>
+                            <AiOutlineDelete />
+                          </button>
+                        )}
+                      </div>
+                    ))}
                   </div>
                 </div>
               </div>

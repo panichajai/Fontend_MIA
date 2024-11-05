@@ -1,8 +1,8 @@
 import React, { useState } from 'react'; 
 import { useNavigate } from 'react-router-dom'; 
 import './Login.css';
-import logo from '../Assets/logo yellow circle.png';
-import background from '../Assets/background.png';
+import logo from '../Assets/image/logo yellow circle.png';
+import background from '../Assets/image/background.png';
 import Google from '../Assets/google.svg';
 import Facebook from '../Assets/facebook.svg';
 import PasswordField from '../Assets/PasswordField';

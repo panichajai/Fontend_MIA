@@ -1,7 +1,7 @@
 import React, { useState } from 'react'; 
 import { useNavigate } from 'react-router-dom';
-import logo from '../Assets/logo yellow circle.png';
-import background from '../Assets/background.png';
+import logo from '../Assets/image/logo yellow circle.png';
+import background from '../Assets/image/background.png';
 import PasswordField from '../Assets/PasswordField'; 
 import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';

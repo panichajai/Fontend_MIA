@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import Header from '../Assets/Header';
 import Menu from '../Assets/Menu';
 import Nav from '../Assets/Nav';
+import Tab from '../Assets/Tab';
 import DateTimePicker from '../Assets/DateTimePicker';
 import ProvinceDropdown from '../Assets/ProvinceDropdown';
 import Dropdown from '../Assets/Dropdown';
@@ -25,6 +26,16 @@ const Insurance = ({ mode }) => {
         insurance_insuretype: '',
         insurance_installmentpayment: ''
       });
+
+      const [activeTab, setActiveTab] = useState('tab1');
+      const handleTabClick = (tabId) => {
+        setActiveTab(tabId);
+      };
+      const tabs = [
+        { id: 'tab1', label: 'เอกสารขอผ่อนชำระ', link: ' ' },
+        { id: 'tab2', label: 'งวดการชำระ', link: ' ' },
+        { id: 'tab3', label: 'ข้อมูลกรมธรรม์', link: ' ' }
+      ]; 
 
     const [selectedInsureType, setSelectedInsureType] = useState('');
     const handleInsureTypeChange = (e) => {
@@ -50,7 +61,18 @@ const Insurance = ({ mode }) => {
             <Header />
             <div className="py-4 pl-6 bg-white">
                 <Nav pageName="กรมธรรม์" />
-                <div className="mt-4 text-4xl ">กรมธรรม์</div>        
+                <div className="mt-4 text-4xl ">กรมธรรม์</div>   
+                <div className="flex border-b gap-8 mb-2 mt-4">
+                {tabs.map((tab) => (
+                  <Tab
+                    key={tab.id}
+                    label={tab.label}
+                    isActive={activeTab === tab.id}
+                    onClick={() => handleTabClick(tab.id)}
+                    link={tab.link}
+                  />
+                ))}
+              </div>          
             </div>
             <div className="flex-1 flex flex-col max-w p-6 m-6 bg-white shadow-md rounded-md">
                 <h2 className="text-2xl font-semibold mb-4">
@@ -175,132 +197,6 @@ const Insurance = ({ mode }) => {
                                 />
                             </div>
                         </div>
-                        <div className="flex row gap-4">
-                            <div className="flex-1">
-                                <label className="block text-sm font-medium text-gray-700">ลูกค้า (ผู้ยืนยันผ่อนชำระ)</label>
-                                <input
-                                    type="text"
-                                      value={insurance.insurance_fname}
-                                      onChange={e => {
-                                        const value = e.target.value;
-                                        if (/^[ก-๙\s]*$/.test(value)) {
-                                            setInsurance({ ...insurance, insurance_fname: value });
-                                        }
-                                      }}
-                                    className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm"
-                                    required
-                                    disabled={disable}
-                                    style={{
-                                        cursor: disable ? 'not-allowed' : 'text',
-                                        backgroundColor: disable ? '#f9fafb' : 'white',
-                                    }}
-                                />
-                            </div>
-                            <div className="flex-1">
-                                <label className="block text-sm font-medium text-gray-700">เชื่อมต่อ LINE</label>
-                                <input
-                                    type="text"
-                                        value={insurance.insurance_lname}
-                                        onChange={e => {
-                                        const value = e.target.value;
-                                        if (/^[ก-๙\s]*$/.test(value)) {
-                                            setInsurance({ ...insurance, insurance_lname: value });
-                                        }
-                                        }}
-                                    className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm"
-                                    required
-                                    disabled={disable}
-                                    style={{
-                                        cursor: disable ? 'not-allowed' : 'text',
-                                        backgroundColor: disable ? '#f9fafb' : 'white',
-                                    }}
-                                />
-                            </div>
-                        </div>   
-                        <div className="flex row gap-4">
-                            <div className="flex-1">
-                                <label className="block text-sm font-medium text-gray-700">วันที่ยกเลิก</label>
-                                <input
-                                    type="text"
-                                      value={insurance.insurance_fname}
-                                      onChange={e => {
-                                        const value = e.target.value;
-                                        if (/^[ก-๙\s]*$/.test(value)) {
-                                            setInsurance({ ...insurance, insurance_fname: value });
-                                        }
-                                      }}
-                                    className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm"
-                                    required
-                                    disabled={disable}
-                                    style={{
-                                        cursor: disable ? 'not-allowed' : 'text',
-                                        backgroundColor: disable ? '#f9fafb' : 'white',
-                                    }}
-                                />
-                            </div>
-                            <div className="flex-1">
-                                <label className="block text-sm font-medium text-gray-700">เหตุผลที่ยกเลิก</label>
-                                <input
-                                    type="text"
-                                      value={insurance.insurance_lname}
-                                      onChange={e => {
-                                        const value = e.target.value;
-                                        if (/^[ก-๙\s]*$/.test(value)) {
-                                            setInsurance({ ...insurance, insurance_lname: value });
-                                        }
-                                      }}
-                                    className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm"
-                                    required
-                                    disabled={disable}
-                                    style={{
-                                        cursor: disable ? 'not-allowed' : 'text',
-                                        backgroundColor: disable ? '#f9fafb' : 'white',
-                                    }}
-                                />
-                            </div>
-                        </div>   
-                        <div className="flex row gap-4">
-                            <div className="flex-1">
-                                <label className="block text-sm font-medium text-gray-700">วันที่ถูกปฏิเสธ</label>
-                                <input
-                                    type="text"
-                                      value={insurance.insurance_fname}
-                                      onChange={e => {
-                                        const value = e.target.value;
-                                        if (/^[ก-๙\s]*$/.test(value)) {
-                                            setInsurance({ ...insurance, insurance_fname: value });
-                                        }
-                                      }}
-                                    className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm"
-                                    required
-                                    disabled={disable}
-                                    style={{
-                                        cursor: disable ? 'not-allowed' : 'text',
-                                        backgroundColor: disable ? '#f9fafb' : 'white',
-                                    }}
-                                />
-                            </div>
-                            <div className="flex-1">
-                                <label className="block text-sm font-medium text-gray-700">เหตุผลที่ถูกปฏิเสธ</label>
-                                <input
-                                    type="text"
-                                      value={insurance.insurance_lname}
-                                      onChange={e => {
-                                        const value = e.target.value;
-                                        if (/^[ก-๙\s]*$/.test(value)) {
-                                            setInsurance({ ...insurance, insurance_lname: value });
-                                        }
-                                      }}
-                                    className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm"
-                                    required
-                                    disabled={disable}
-                                    style={{
-                                        cursor: disable ? 'not-allowed' : 'text',
-                                        backgroundColor: disable ? '#f9fafb' : 'white',
-                                    }}
-                                />
-                            </div>
-                        </div> 
                     </div>
                     <div>
                         <div className="flex flex-col gap-6 mb-6">
